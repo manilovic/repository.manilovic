@@ -90,8 +90,7 @@ if name is None:
     xbmcplugin.endOfDirectory(addon_handle)
 
     input_file.close()
-    #subprocess.run([ "sudo", "rm",  ruta_titulos ])
-
+    
 
 else:
 

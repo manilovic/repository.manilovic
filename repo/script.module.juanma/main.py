@@ -32,13 +32,17 @@ debug("JM  sys 3 >> " + str(sys.argv[3]))
 
 if str(sys.argv[2]) == '?parar_acestream_2':
     parar_setting_acestream()
-    #exit(0)
+
 if str(sys.argv[2]) == '?limpiar_cache':
     limpiar_cache_setting()
-    #exit(0)
+    
 if str(sys.argv[2]) == '?actualizar_links':
     actualizar_links_setting()
-    #exit(0)
+    
+if str(sys.argv[2]) == '?todos_links_setting':
+    todos_links_setting()
+
+
 
 
 # Indentificar Sistema
@@ -90,7 +94,7 @@ if name is None:
     xbmcplugin.endOfDirectory(addon_handle)
 
     input_file.close()
-    
+
 
 else:
 

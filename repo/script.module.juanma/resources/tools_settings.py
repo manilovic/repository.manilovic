@@ -103,3 +103,48 @@ def actualizar_links_setting():
     file_ids.close()
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
+
+
+def todos_links_setting():
+
+    notificacion("Actualizando lista completa links")
+    debug ("JM  Actualizando lista completa links")
+
+    ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
+    file_ids = open(ruta_ids, mode='w')
+
+    response = urllib.request.urlopen("https://hackmd.io/@DEPORTES/AP-ID")
+    html = response.read().decode('utf-8')
+
+
+    for item in html.split("\n"):
+        if "arrow" in item:
+            busqueda= item.strip()
+            start = busqueda.find("**")
+            end = busqueda.find("[:arrow")
+            busqueda = busqueda[start:end]
+            x = busqueda.replace("**","")
+            x = x.strip()  #x = "DAZN LaLiga1080p MultiAudio"
+
+            start = html.find(x)
+            end =  start + 300
+            busqueda = html[start:end]
+            busqueda = busqueda.split('\n', 1)[0]
+
+            while "acestream" in busqueda:
+                start = busqueda.find("acestream://")
+                end = start + 52
+                ace_link = busqueda[start:end]              ## acestream://60cf60019aeef9af6.... ##
+                busqueda = busqueda.replace(ace_link, " ")  ## borramos para siguiente iteraccion ##
+
+                ace_link = ace_link.replace("acestream://","")
+                items ={"name":x, "link":ace_link}
+                y = json.dumps(items)
+                
+                file_ids.write(y)
+                file_ids.write("\n")
+
+
+    file_ids.close()
+    notificacion("Links actualizados")
+    debug ("JM  Links actualizados")

@@ -21,13 +21,12 @@ from urllib.parse import urlencode
 # Debug
 debug ("JM ADDON INICIO")
 
-xbmc.log('JM  Argumentos: ' + str(len(sys.argv)), xbmc.LOGINFO)
-xbmc.log('JM  Argumentos son: ' + str(sys.argv), xbmc.LOGINFO)
+#Settings buttons
 
-debug("JM  sys 0 >> " + str(sys.argv[0]))
-debug("JM  sys 1 >> " + str(sys.argv[1]))
-debug("JM  sys 2 >> " + str(sys.argv[2]))
-debug("JM  sys 3 >> " + str(sys.argv[3]))
+debug("JM  sys.argv 0 >> " + str(sys.argv[0]))
+debug("JM  sys.argv 1 >> " + str(sys.argv[1]))
+debug("JM  sys.argv 2 >> " + str(sys.argv[2]))
+debug("JM  sys.argv 3 >> " + str(sys.argv[3]))
 
 
 if str(sys.argv[2]) == '?parar_acestream_2':
@@ -43,34 +42,17 @@ if str(sys.argv[2]) == '?todos_links_setting':
     todos_links_setting()
 
 
-
-
 # Indentificar Sistema
 
 debug("JM  Sistema es " + sistema())
 
-pathTV = '/storage/emulated/0/org.acestream.engine/.ACEStream/'
-pathPHONE = '/storage/emulated/0/Android/data/org.acestream.media.atv/files/.ACEStream/'
-path = '/usr/local/bin/'
 
-isExist = os.path.exists(path)
-notificacion(isExist)
-debug(str(isExist))
-
-isExist = os.path.exists(pathTV)
-notificacion(isExist)
-debug(str(isExist))
-
-isExist = os.path.exists(pathPHONE)
-notificacion(isExist)
-debug(str(isExist))
-
-#
+#########
 
 def build_url(query):
 
-    return base_url + '?' + urllib.parse.urlencode(query)   #{"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"})
-                                                            #jm = urllib.parse.urlencode(y) # name=Laliga+multiaudio&link=167e3b44a520cd76d4372f6d30fe6d7ccd524175
+    return base_url + '?' + urllib.parse.urlencode(query)   #  {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"})
+                                                                                 #  jm = urllib.parse.urlencode(y) # name=Laliga+multiaudio&link=167e3b44a520cd76d4372f6d30fe6d7ccd524175
 
 ####### MENUS CANALES ########
 
@@ -82,9 +64,10 @@ args = urllib.parse.parse_qs(sys.argv[2][1:])
 ### click name
 name = args.get('name', None)
 
+
+### MENU canales
+
 if name is None:
-    
-    ## Menu 
 
     xbmcplugin.setContent(addon_handle, 'movies')
     listing = []
@@ -92,7 +75,7 @@ if name is None:
     input_file = open(ruta_ids, mode='r')
 
     for line in input_file:
-        y = json.loads(line)         #{"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"}
+        y = json.loads(line)         #  {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"}
         url = build_url(y)                                     
         ruta_titulos = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/titulos.txt")
         output_file = open(ruta_titulos, mode='w')
@@ -112,6 +95,7 @@ if name is None:
 
     input_file.close()
 
+### click canal
 
 else:
 
@@ -121,7 +105,7 @@ else:
     link = args.get('link', None)
     url = link[0]
 
-    ###
+    ### Android API
 
     if sistema() == "android":  
         debug("JM  sistema android canal")
@@ -129,6 +113,8 @@ else:
         AndroidActivity = 'StartAndroidActivity("","org.acestream.action.start_content","","acestream:?content_id=%s")' % url  ## %s por url
         debug("JM  Abriendo Android")
         xbmc.executebuiltin(AndroidActivity)
+    
+    ### Linux
     
     else:
         debug("JM Inicio Canal " + nombre + ": "+ url)

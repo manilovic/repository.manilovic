@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.manilovic" name="[COLOR lime]Repositorio Manilovic[/COLOR]" version="1.0.0" provider-name="Manilovic">
+<addon id="repository.manilovic" name="[COLOR lime]Repositorio Manilovic[/COLOR]" version="2.0.0" provider-name="Manilovic">
     <extension point="xbmc.addon.repository" name="Manilovic official Repo">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/manilovic/repository.manilovic/master/repo/zips/addons.xml</info>

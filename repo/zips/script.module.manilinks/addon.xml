@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.manilinks" name="Manilovic Links" version="3.0.0" provider-name="Manilovic">
+	<requires>
+		<import addon="script.module.juanma" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="main.py">
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<description>Addon de Manilovic</description>
+		<disclaimer>Actualizador links Acestream.</disclaimer>
+		<platform>all</platform>
+		<assets>
+			<icon>resources/therock2logo.jpeg</icon>
+			<fanart>resources/therock2logo.jpeg</fanart>
+		</assets>
+		<news>-1.0: Special protocol
+		      -2.0: Plataformas ANDORID ARM X86
+		      -3.0: Python (Versión Final)
+		</news>
+	</extension>
+</addon>
+

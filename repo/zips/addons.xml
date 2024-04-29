@@ -73,7 +73,7 @@
         <forum>https://t.me/KodiManiac
         https://t.me/acestream_spanish</forum>
     </extension>
-</addon><addon id="script.module.juanma" name="Manilovic" version="3.96" provider-name="Manilovic">
+</addon><addon id="script.module.juanma" name="Manilovic" version="4.00" provider-name="Manilovic">
 	<requires>
 		<import addon="script.module.horus" />
 		<import addon="script.module.six" />
@@ -93,7 +93,7 @@
 			-Special Protocol
 			-Plataformas ANDROID ARM X86
 			-Limpiar cache
-			-Nueva URL (https://hackmd.io/@67QuUe0VRy-nPCNoJwtsgQ/plan-d)
+			-Nueva URL (sites google)
 		</news>
 	</extension>
 </addon><addon id="script.module.six" name="six" version="1.15.0" provider-name="gutworth">

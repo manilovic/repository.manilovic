@@ -124,41 +124,44 @@ def actualizar_links_setting():
 
 def todos_links_setting():
 
-
     notificacion("Actualizando lista completa links")
     debug ("JM  Actualizando lista completa links")
 
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     file_ids = open(ruta_ids, mode='w')
 
-    try:
-        url = "https://sites.google.com/view/elplandeportes/inicio"
-        response = urllib.request.urlopen(url)
-        html = response.read().decode('utf-8')
+    response = urllib.request.urlopen("https://hackmd.io/@67QuUe0VRy-nPCNoJwtsgQ/plan-d")   ############################ LINK
+    html = response.read().decode('utf-8')
 
-        x = "data-tooltip=\"DAZN LaLiga\""
-        start = html.find(x)
-        y = "Reddit https://reddit.com/user/No_Land656"
-        end = html.find(y)
-        busqueda = html[start:end]
 
-        # Expresión regular para buscar todos los valores dentro de los atributos href
-        href_values = re.findall(r'href="([^"]+)"', busqueda)
+    for item in html.split("\n"):
+        if "arrow" in item:
+            busqueda= item.strip()
+            start = busqueda.find("**")
+            end = busqueda.find("[:arrow")
+            busqueda = busqueda[start:end]
+            x = busqueda.replace("**","")
+            x = x.strip()  #x = "DAZN LaLiga1080p MultiAudio"
 
-        for href in href_values:
-            # Parseamos la URL
-            parsed_url = urllib.parse.urlparse(href)
-            # Obtener el valor del parámetro 'q' que contiene la URL de destino
-            destination_url = urllib.parse.parse_qs(parsed_url.query).get('q')
-            if destination_url:
-                destination_url = destination_url[0] # Obtener el primer elemento de la lista
-                parsed_destination_url = urllib.parse.urlparse(destination_url)
-                name = os.path.basename(parsed_destination_url.path)
-                items = {"name": name, "link": destination_url}
-                json_data = json.dumps(items)  # Convertir el diccionario a formato JSON
-                file_ids.write(json_data + "\n")  # Escribir en el archivo en formato JSON
-    finally:
-        file_ids.close()  # Asegurar que el archivo se cierre correctamente
-    
+            start = html.find(x)
+            end =  start + 300
+            busqueda = html[start:end]
+            busqueda = busqueda.split('\n', 1)[0]
+
+            while "acestream" in busqueda:
+                start = busqueda.find("acestream://")
+                end = start + 52
+                ace_link = busqueda[start:end]              ## acestream://60cf60019aeef9af6.... ##
+                busqueda = busqueda.replace(ace_link, " ")  ## borramos para siguiente iteraccion ##
+
+                ace_link = ace_link.replace("acestream://","")
+                items ={"name":x, "link":ace_link}
+                y = json.dumps(items)
+                
+                file_ids.write(y)
+                file_ids.write("\n")
+
+
+    file_ids.close()
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")

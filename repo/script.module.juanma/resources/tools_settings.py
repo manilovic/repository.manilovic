@@ -8,6 +8,7 @@ import urllib.request
 import re
 import json
 import shutil
+import requests
 
 from resources.tools import *
 
@@ -83,48 +84,75 @@ def limpiar_cache_setting():
     return(debug("JM  Caché limpiado"))
 
 
-def actualizar_links_setting():
+def replace_opcion(name):
+    name = name.replace("o1", "Opción 1")
+    name = name.replace("o2", "Opción 2")
+    name = name.replace("o3", "Opción 3")
+    name = name.replace("O 3", "Opción 3")
+    name = name.replace("m-","Movistar-")
+    name = name.replace("channel","")  
+    name = name.replace("deportes","M. Deportes-") 
+    name = name.replace("campeones","M. Liga Campeones-") 
+    name = name.replace("-", " ")  # Eliminar el guion "-"
+    name = " ".join(word.capitalize() for word in name.split())  # Convertir la primera letra de cada palabra en mayúscula
+    return name
 
-    notificacion("Actualizando links acestream")
-    debug ("JM  Actualizando links acestream")
+
+def actualizar_links_setting():
+    notificacion("Actualizando links acestream...")
+    debug("JM  Actualizando links acestream")
 
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")  ############################ LINK
     file_ids = open(ruta_ids, mode='w')
 
-    response = urllib.request.urlopen("https://hackmd.io/@67QuUe0VRy-nPCNoJwtsgQ/plan-d")
+    url = "https://sites.google.com/view/elplandeportes/inicio"
+    response = urllib.request.urlopen(url)
     html = response.read().decode('utf-8')
 
-    canales = ["DAZN LaLiga 1080p","M. LaLiga TV 1080p","LaLiga Hypermotion 1080p","M.L. Campeones 1080p","M.L. Campeones 2 1080p","M. Deportes 1080p","DAZN 1 1080p", "DAZN 2 1080p","DAZN F1 1080p","DAZN F1 Multicam 1080p","M. Golf 1080p"]
+    x = "data-tooltip=\"DAZN LaLiga\""
+    start = html.find(x)
+    y = "Reddit https://reddit.com/user/No_Land656"
+    end = html.find(y)
+    busqueda = html[start:end]
+
+    canales = ["dazn", "m-ligatv", "deportes", "campeones", "golf"]
 
     for x in canales:
-
-        start = html.find(x)
-        end =  start + 300
-        busqueda = html[start:end]
-        busqueda = busqueda.split('\n', 1)[0]
+        href_values = re.findall(r'href="([^"]*{}[^"]*)"'.format(x), busqueda)  # Expresión regular para buscar todos los valores dentro de los atributos href que contienen el valor de la variable "canales"
         
-        while "acestream" in busqueda:
-            start = busqueda.find("acestream://")
-            end = start + 52
-            ace_link = busqueda[start:end]              ## acestream://60cf60019aeef9af6.... ##
-            busqueda = busqueda.replace(ace_link, " ")  ## borramos para siguiente iteraccion ##
-
-            ace_link = ace_link.replace("acestream://","")
-            items ={"name":x, "link":ace_link}
-            y = json.dumps(items)
-            
-            file_ids.write(y)
-            file_ids.write("\n")
-
+        for href in href_values:
+            parsed_url = urllib.parse.urlparse(href)  # Parseamos la URL
+            destination_url = urllib.parse.parse_qs(parsed_url.query).get('q')  # Obtener el valor del parámetro 'q' que contiene la URL de destino
+    
+            if destination_url:
+                destination_url = destination_url[0]  # Obtener el primer elemento de la lista
+                parsed_destination_url = urllib.parse.urlparse(destination_url)
+                name = os.path.basename(parsed_destination_url.path)
+                name = replace_opcion(name)
+                try:
+                    response = requests.get(destination_url)
+                    html_content = response.text
+                except requests.exceptions.RequestException as e:
+                    error_message = str(e)  # Convertimos el error en una cadena para almacenarlo
+                    print("Mensaje de error:", error_message)  # Imprimimos el mensaje de error capturado
+                    x = "acestream://"
+                    start = error_message.find(x)
+                    start = start + 12
+                    end = start + 40
+                    ace_link = error_message[start:end]
+                    html_content = None
+                    items = {"name": name, "link": ace_link}
+                    json_data = json.dumps(items)  # Convertir el diccionario a formato JSON
+                    file_ids.write(json_data + "\n")  # Escribir en el archivo en formato JSON
 
     file_ids.close()
     notificacion("Links actualizados")
-    debug ("JM  Links actualizados")
+    debug("JM  Links actualizados")
 
-
+    
 def todos_links_setting():
 
-    notificacion("Actualizando lista completa links")
+    notificacion("Actualizando lista completa links...")
     debug ("JM  Actualizando lista completa links")
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     file_ids = open(ruta_ids, mode='w')    
@@ -149,6 +177,8 @@ def todos_links_setting():
             destination_url = destination_url[0]  # Obtener el primer elemento de la lista
             parsed_destination_url = urllib.parse.urlparse(destination_url)
             name = os.path.basename(parsed_destination_url.path)
+            name = replace_opcion(name)
+
         try:
             response = requests.get(destination_url)
             html_content = response.text

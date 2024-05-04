@@ -6,13 +6,36 @@ import os
 import platform
 
 
-
-
 def debug(message):
 
     log_enabled = getsetting("debug")
     if log_enabled == "true":
         xbmc.log(message, xbmc.LOGINFO)
+
+
+def lista_elementos():
+
+    Dazn_Mov_Liga = getsetting("Dazn_Mov_Liga")
+    Liga_campeones = getsetting("Liga_campeones")
+    F1 = getsetting("F1")
+    Motogp = getsetting("Motogp")
+    Deportes = getsetting("Deportes")
+                
+    canales = []
+
+    if Dazn_Mov_Liga == "true":
+        canales += ["dazn-laliga", "m-ligatv"]
+    if Liga_campeones == "true":
+        canales += ["campeones"]
+    if F1 == "true":
+        canales += ["dazn-channel-f1"]
+    if Motogp == "true":
+        canales += ["dazn-channel1", "dazn-channel2"]          
+    if Deportes == "true":
+        canales += ["deportes"]
+
+    debug("JM" + str(canales))
+    return(canales)
 
 
 def importar(addon_id):
@@ -52,6 +75,29 @@ def notificacion(line1):
     #line1 = "No Server"
     timeml = 5000 #in miliseconds
     xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__,line1, timeml, __icon__))
+    
+    
+    
+def replace_opcion(name):
+     
+    name = name.replace("c1", "1") 
+    name = name.replace("c2", "2")
+    name = name.replace("o1", "Alternativo 1")
+    name = name.replace("o2", "Alternativo 2")
+    name = name.replace("o3", "Alternativo 3")
+    name = name.replace("o-3", "Alternativo 3")
+    name = name.replace("o4", "Alternativo 4")
+    name = name.replace("o5", "Alternativo 5")
+    name = name.replace("02", "Alternativo 2")
+    name = name.replace("03", "Alternativo 3")
+    name = name.replace("m-ligatv", "LaLiga TV-")
+    name = name.replace("channel","")  
+    name = name.replace("deportes","M. Deportes-") 
+    name = name.replace("m-golf1-2","M. Golf 1-") 
+    name = name.replace("campeones","Liga Campeones-") 
+    name = name.replace("-", " ")  # Eliminar el guion "-"
+    name = " ".join(word.capitalize() for word in name.split())  # Convertir la primera letra de cada palabra en mayúscula
+    return name
    
    
 def arrancar_acestream():

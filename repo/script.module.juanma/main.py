@@ -85,7 +85,12 @@ if name is None:
         titulo = f.read()
         f.close()
         list_item = xbmcgui.ListItem(titulo)
-        list_item.setInfo('video', {'title': titulo})
+        ####
+        #list_item.setInfo('video', {'title': titulo})
+        info = list_item.getVideoInfoTag()
+        info.setTitle(titulo)
+        list_item.setInfo('video', info)
+        #####
         list_item.setProperty('IsPlayable', 'false')  
         is_folder = False
         listing.append((url, list_item, is_folder))

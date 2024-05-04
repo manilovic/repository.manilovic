@@ -73,7 +73,7 @@
         <forum>https://t.me/KodiManiac
         https://t.me/acestream_spanish</forum>
     </extension>
-</addon><addon id="script.module.juanma" name="Manilovic" version="4.11" provider-name="Manilovic">
+</addon><addon id="script.module.juanma" name="Manilovic" version="5.00" provider-name="Manilovic">
 	<requires>
 		<import addon="script.module.horus" />
 		<import addon="script.module.six" />
@@ -90,7 +90,7 @@
 			<fanart>resources/therocklogo.jpg</fanart>
 		</assets>
 		<news>
-			-Nueva URL en google sites y cambio de nombres, ajusta actualizaciones
+			-Nueva URL en google sites y mejorado los settings
 		</news>
 	</extension>
 </addon><addon id="script.module.six" name="six" version="1.15.0" provider-name="gutworth">

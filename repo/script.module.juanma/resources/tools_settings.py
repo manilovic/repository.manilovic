@@ -84,18 +84,143 @@ def limpiar_cache_setting():
     return(debug("JM  Caché limpiado"))
 
 
-def replace_opcion(name):
-    name = name.replace("o1", "Opción 1")
-    name = name.replace("o2", "Opción 2")
-    name = name.replace("o3", "Opción 3")
-    name = name.replace("O 3", "Opción 3")
-    name = name.replace("m-","Movistar-")
-    name = name.replace("channel","")  
-    name = name.replace("deportes","M. Deportes-") 
-    name = name.replace("campeones","M. Liga Campeones-") 
-    name = name.replace("-", " ")  # Eliminar el guion "-"
-    name = " ".join(word.capitalize() for word in name.split())  # Convertir la primera letra de cada palabra en mayúscula
-    return name
+
+def todos_links_setting():
+
+    notificacion("Actualizando lista completa links....")
+    debug ("JM  Actualizando lista completa links....")
+    
+    notificacion("Tarda unos segundos....")
+    debug ("JM  Tarda unos segundos....")
+
+    notificacion("Espera mensaje de confirmación....")
+    debug ("JM  Espera mensaje de confirmación....")
+ 
+    ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
+    file_ids = open(ruta_ids, mode='w')
+
+    url = "https://sites.google.com/view/elplandeportes/inicio"
+    response = urllib.request.urlopen(url)
+    html = response.read().decode('utf-8')
+
+    x = "data-tooltip=\"DAZN LaLiga\""
+    start = html.find(x)
+    y = "Reddit https://reddit.com/user/No_Land656"
+    end = html.find(y)
+    busqueda = html[start:end]
+
+    href_values = re.findall(r'href="([^"]+)"', busqueda)     # Expresión regular para buscar todos los valores dentro de los atributos href
+    result = []                                               # Definir la lista de resultados aquí
+
+    for href in href_values:
+       parsed_url = urllib.parse.urlparse(href)                              # Parseamos la URL
+       destination_url = urllib.parse.parse_qs(parsed_url.query).get('q')    # Obtener el valor del parámetro 'q' que contiene la URL de destino
+    
+       if destination_url:                                                   #  se utiliza para verificar si destination_url tiene algún valor antes de intentar acceder al primer elemento de la lista 
+         destination_url = destination_url[0]                                # Acceder al primer elemento de la lista
+         parsed_destination_url = urllib.parse.urlparse(destination_url)
+         name = os.path.basename(parsed_destination_url.path)    	     # Obtener el nombre del archivo de la URL analizada
+         name = replace_opcion(name) 
+         try:
+            response = urllib.request.urlopen(destination_url)
+            html_content = response.read().decode('utf-8')
+         except urllib.error.URLError as e:
+            error_message = str(e)                                           # Convertimos el error en una cadena para almacenarlo
+            ##print("Mensaje de error:", error_message)                      # Imprimimos el mensaje de error capturado
+            x = "acestream://"
+            start = error_message.find(x)
+            start = start +12
+            end = start + 40
+            ace_link = error_message[start:end]
+            html_content = None
+            items = {"name": name, "link": ace_link}
+            result.append(items)                                             # Agregar el diccionario a la lista de resultados
+            
+            
+    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name"
 
 
+    for item in result_sorted:                                               # Imprimir los elementos ordenados
+       json_data = json.dumps(item)                                           # Convertir el diccionario a formato JSON
+       file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
+      
 
+      
+    file_ids.close()
+    notificacion("Links actualizados")
+    debug ("JM  Links actualizados")
+    
+
+def actualizar_links_setting():
+
+    notificacion("Actualizando lista pequeña links....")
+    debug ("JM  Actualizando lista pequeña links....")
+    
+    canales = lista_elementos()
+    
+    notificacion("Tarda unos segundos....")
+    debug ("JM  Tarda unos segundos....")
+
+    notificacion("Espera mensaje de confirmación....")
+    debug ("JM  Espera mensaje de confirmación....")
+ 
+    ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
+    file_ids = open(ruta_ids, mode='w')
+
+    url = "https://sites.google.com/view/elplandeportes/inicio"
+    response = urllib.request.urlopen(url)
+    html = response.read().decode('utf-8')
+
+    x = "data-tooltip=\"DAZN LaLiga\""
+    start = html.find(x)
+    y = "Reddit https://reddit.com/user/No_Land656"
+    end = html.find(y)
+    busqueda = html[start:end]
+    
+    result = []                                               # Definir la lista de resultados aquí
+
+
+    for x in canales:
+        href_values = re.findall(r'href="([^"]*{}[^"]*)"'.format(x), busqueda)  # Expresión regular para buscar todos los valores dentro de los atributos href que contienen el valor de la variable "canales"
+        
+        for href in href_values:
+           parsed_url = urllib.parse.urlparse(href)                                  # Parseamos la URL
+           destination_url = urllib.parse.parse_qs(parsed_url.query).get('q')        # Obtener el valor del parámetro 'q' que contiene la URL de destino
+    
+           if destination_url:                                                    #  se utiliza para verificar si destination_url tiene algún valor antes de intentar acceder al primer elemento de la lista 
+              destination_url = destination_url[0]  # Acceder al primer elemento de la lista
+              parsed_destination_url = urllib.parse.urlparse(destination_url)
+              name = os.path.basename(parsed_destination_url.path)    		# Obtener el nombre del archivo de la URL analizada
+              name = replace_opcion(name) 
+              try:
+                response = urllib.request.urlopen(destination_url)
+                html_content = response.read().decode('utf-8')
+              except urllib.error.URLError as e:
+                error_message = str(e)                                                               # Convertimos el error en una cadena para almacenarlo
+                ##print("Mensaje de error:", error_message)                                    # Imprimimos el mensaje de error capturado
+                x = "acestream://"
+                start = error_message.find(x)
+                start = start +12
+                end = start + 40
+                ace_link = error_message[start:end]
+                html_content = None
+                items = {"name": name, "link": ace_link}
+                result.append(items)  # Agregar el diccionario a la lista de resultados
+        
+    result_sorted = sorted(result, key=lambda x: x['name'])
+    
+    for item in result_sorted:    # Imprimir los elementos ordenados
+       json_data = json.dumps(item)                                           # Convertir el diccionario a formato JSON
+       file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
+        
+    file_ids.close()
+    notificacion("Links actualizados")
+    debug ("JM  Links actualizados")
+    
+    
+
+    
+    
+    
+    
+    

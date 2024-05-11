@@ -1,0 +1,10 @@
+<favourites>
+    <favourite name="Manilovic" thumb="special://home/addons/script.module.juanma/resources/logos/therocklogo.jpg">ActivateWindow(10001,&quot;plugin://script.module.juanma&quot;,return)</favourite>
+    <favourite name="Dazn Laliga&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Dazn_laliga_logo.jpg">PlayMedia(&quot;plugin://script.module.juanma/?name=Dazn+Laliga&amp;link=1960a9be8ae9e8c755330218eac4c5805466290a&quot;)</favourite>
+    <favourite name="Laliga Tv&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Mov_laliga_logo.jpg">PlayMedia(&quot;plugin://script.module.juanma/?name=Laliga+Tv&amp;link=1969c27658d4c8333ab2c0670802546121a774a5&quot;)</favourite>
+    <favourite name="Liga Campeones 1&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Liga_Campeones_logo.jpg">PlayMedia(&quot;plugin://script.module.juanma/?name=Liga+Campeones+1&amp;link=f096a64dd756a6d549aa7b12ee9acf7eee27e833&quot;)</favourite>
+    <favourite name="Dazn F1&#x0A;" thumb="/home/juan.gonzalez/.kodi/addons/script.module.juanma/resources/logos/F1_logo.jpg">PlayMedia(&quot;plugin://script.module.juanma/?name=Dazn+F1&amp;link=5789ca155323664edd293b848606688edf803f4d&quot;)</favourite>
+     <favourite name="Dazn 1&#x0A;" thumb="/home/juan.gonzalez/.kodi/addons/script.module.juanma/resources/logos/motogp_logo.jpg">PlayMedia(&quot;plugin://script.module.juanma/?name=Dazn+1&amp;link=8ca07071b39185431f8e940ec98d1add9e561639&quot;)</favourite>
+    <favourite name="M. Golf 1&#x0A;" thumb="/home/juan.gonzalez/.kodi/addons/script.module.juanma/resources/logos/Golf_logo.jpg">PlayMedia(&quot;plugin://script.module.juanma/?name=M.+Golf+1&amp;link=872608e734992db636eb79426802cd08f4029afb&quot;)</favourite>
+    <favourite name="M. Deportes 1&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Deportes_logo.jpg">PlayMedia(&quot;plugin://script.module.juanma/?name=M.+Deportes+1&amp;link=d00223931b1854163e24c5c22475015d7d45c112&quot;)</favourite>
+</favourites>

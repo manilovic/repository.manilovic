@@ -73,7 +73,7 @@
         <forum>https://t.me/KodiManiac
         https://t.me/acestream_spanish</forum>
     </extension>
-</addon><addon id="script.module.juanma" name="Manilovic" version="5.00" provider-name="Manilovic">
+</addon><addon id="script.module.juanma" name="Manilovic" version="5.10" provider-name="Manilovic">
 	<requires>
 		<import addon="script.module.horus" />
 		<import addon="script.module.six" />
@@ -86,8 +86,8 @@
 		<disclaimer>Enlaces a Canales</disclaimer>
 		<platform>all</platform>
 		<assets>
-			<icon>resources/therocklogo.jpg</icon>
-			<fanart>resources/therocklogo.jpg</fanart>
+			<icon>resources/logos/therocklogo.jpg</icon>
+			<fanart>resources/logos/therocklogo.jpg</fanart>
 		</assets>
 		<news>
 			-Nueva URL en google sites y mejorado los settings

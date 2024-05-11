@@ -12,6 +12,7 @@ import urllib.parse
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 from urllib.parse import urlencode
+import shutil
 
 
 ####### MAIN #########
@@ -20,6 +21,22 @@ from urllib.parse import urlencode
 
 # Debug
 debug ("JM ADDON INICIO")
+
+# Favoritos
+debug ("JM cp Favoritos")
+
+ruta_origen = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
+ruta_destino = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
+shutil.copyfile(ruta_origen, ruta_destino) # Copiar y sobrescribir el archivo origen al archivo destino
+
+ruta_origen = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
+ruta_destino = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
+shutil.copyfile(ruta_origen, ruta_destino) # Copiar y sobrescribir el archivo origen al archivo destino
+
+
+
+
+print("Archivo sobrescrito exitosamente.")
 
 #Settings buttons
 
@@ -85,12 +102,48 @@ if name is None:
         titulo = f.read()
         f.close()
         list_item = xbmcgui.ListItem(titulo)
-        ####
-        #list_item.setInfo('video', {'title': titulo})
         info = list_item.getVideoInfoTag()
         info.setTitle(titulo)
+        ####
+        if  "Dazn F1" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/F1_logo.jpg")
+           list_item.setArt({'thumb': thumb})
+        
+        if  "Dazn Laliga" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_laliga_logo.jpg")
+           list_item.setArt({'thumb': thumb})     
+        
+        if  "Laliga Tv" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Mov_laliga_logo.jpg")
+           list_item.setArt({'thumb': thumb})
+           
+        if  "Liga Campeones" in titulo:                                                       
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Liga_Campeones_logo.jpg")
+           list_item.setArt({'thumb': thumb})
+
+        if  "M. Deportes" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Deportes_logo.jpg")
+           list_item.setArt({'thumb': thumb})
+           
+        if  "Dazn 1" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/motogp_logo.jpg")
+           list_item.setArt({'thumb': thumb})
+ 
+        if  "M. Golf" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Golf_logo.jpg")
+           list_item.setArt({'thumb': thumb})
+         
+        if  "Eurosport 1" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/eurosport_1_logo.jpg")
+           list_item.setArt({'thumb': thumb})
+                     
+        if  "Eurosport 2" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/eurosport_2_logo.jpg")
+           list_item.setArt({'thumb': thumb})
+                          
+        
+        ####
         list_item.setInfo('video', info)
-        #####
         list_item.setProperty('IsPlayable', 'false')  
         is_folder = False
         listing.append((url, list_item, is_folder))

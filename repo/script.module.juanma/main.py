@@ -106,39 +106,47 @@ if name is None:
         info.setTitle(titulo)
         ####
         if  "Dazn F1" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/F1_logo.jpg")
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/F1_logo_v2.png")
            list_item.setArt({'thumb': thumb})
         
         if  "Dazn Laliga" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_laliga_logo.jpg")
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_liga_logo_v2.png")
            list_item.setArt({'thumb': thumb})     
         
         if  "Laliga Tv" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Mov_laliga_logo.jpg")
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Mov_liga_logo_v2.png")
            list_item.setArt({'thumb': thumb})
            
         if  "Liga Campeones" in titulo:                                                       
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Liga_Campeones_logo.jpg")
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Campeones_logo_v2.png")
            list_item.setArt({'thumb': thumb})
 
         if  "M. Deportes" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Deportes_logo.jpg")
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Deportes_logo_v2.png")
            list_item.setArt({'thumb': thumb})
            
         if  "Dazn 1" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Motogp_logo.jpg")
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Motogp_logo_v2.png")
            list_item.setArt({'thumb': thumb})
- 
+
+        if  "Dazn 2" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_2_logo_v2.png")
+           list_item.setArt({'thumb': thumb})
+
+        if  "Dazn 3" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_3_logo_v2.png")
+           list_item.setArt({'thumb': thumb})
+  
         if  "M. Golf" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Golf_logo.jpg")
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Golf_logo_v2.png")
            list_item.setArt({'thumb': thumb})
          
         if  "Eurosport 1" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_1_logo.jpg")
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_1_logo_v2.png")
            list_item.setArt({'thumb': thumb})
                      
         if  "Eurosport 2" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_2_logo.jpg")
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_2_logo_v2.png")
            list_item.setArt({'thumb': thumb})
                           
         

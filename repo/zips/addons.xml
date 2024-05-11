@@ -91,6 +91,7 @@
 		</assets>
 		<news>
 			-Nueva URL en google sites y mejorado los settings
+			-Añadido Favoritos
 		</news>
 	</extension>
 </addon><addon id="script.module.six" name="six" version="1.15.0" provider-name="gutworth">

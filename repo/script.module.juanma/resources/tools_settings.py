@@ -66,8 +66,8 @@ def limpiar_cache_setting():
             debug("JM  caché borrado")
             
     elif sistema() == "Ubuntu":
-        notificacion("Limpiando caché")
-        debug("JM  Limpiando caché")
+        notificacion("Limpiando caché UBUNTU")
+        debug("JM  Limpiando caché UBUNTU")
         comando = "find  /home/*/snap/acestreamplayer/??/.ACEStream/.acestream_cache/* -maxdepth 1 -mmin +120 -delete"
         subprocess.run(comando, shell=True)
         debug("JM  caché borrado")
@@ -217,10 +217,40 @@ def actualizar_links_setting():
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
     
+      
     
+def actualizar_favoritos_setting():
 
+    ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
+    ruta_backup = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
+    ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
+    ruta_test = xbmcvfs.translatePath("special://home/userdata/favourites.xml.test")
     
-    
-    
-    
-    
+    if xbmcvfs.exists(ruta_favoritos):                              # Verifica si existe la ruta de origen
+        debug ("JM Se encontró archivo Favoritos")
+        shutil.copyfile(ruta_favoritos, ruta_backup)                # Copiar y sobrescribir el archivo origen al archivo backup
+        with xbmcvfs.File(ruta_backup, 'r') as file_origen:
+            lines = file_origen.read().splitlines()                
+        with xbmcvfs.File(ruta_test, 'w') as file_destino:
+            for line in lines[:-1]:                                 # Slice to skip the last line
+                file_destino.write(line + "\n")
+        with xbmcvfs.File(ruta_test, 'r') as file_test:
+            existing_lines = file_test.read().splitlines()
+
+        
+        with xbmcvfs.File(ruta_favoritos_JM, 'r') as file_test:
+            lines = file_test.read().splitlines()
+        with xbmcvfs.File(ruta_test, 'w') as file_destino:
+            for line in lines[1:]:                                  # Slice to skip the first line
+                file_destino.write(line + "\n")
+        with xbmcvfs.File(ruta_test, 'r') as file_origen:
+            lines_to_append = file_origen.read().splitlines()
+
+        combined_lines = existing_lines + lines_to_append
+        with xbmcvfs.File(ruta_favoritos, 'w') as file_destino:
+            for line in combined_lines:
+                file_destino.write(line + "\n")
+
+    notificacion("Favoritos actualizado")
+    notificacion("Reiniciar Kodi para que surtan efecto los cambios")
+    debug ("JM Favoritos actualizados")

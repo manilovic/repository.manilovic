@@ -23,20 +23,25 @@ import shutil
 debug ("JM ADDON INICIO")
 
 # Favoritos
-debug ("JM cp Favoritos")
 
-ruta_origen = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
-ruta_destino = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
-shutil.copyfile(ruta_origen, ruta_destino) # Copiar y sobrescribir el archivo origen al archivo destino
+ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
+ruta_backup = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
+ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
+ruta_test = xbmcvfs.translatePath("special://home/userdata/favourites.xml.test")
 
-ruta_origen = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
-ruta_destino = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
-shutil.copyfile(ruta_origen, ruta_destino) # Copiar y sobrescribir el archivo origen al archivo destino
+debug(ruta_favoritos)
 
+if xbmcvfs.exists(ruta_favoritos):                            # Verifica si existe la ruta de origen
+    debug("JM Se encontró el archivo favoritos")
 
+else:
+    debug ("JM No se encontró el archivo favoritos")
+    with open(ruta_favoritos, 'w') as file:
+        file.write("")  # Crear un archivo vacío
+    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
+    debug ("JM Copiado favoritos de JM")
+    
 
-
-print("Archivo sobrescrito exitosamente.")
 
 #Settings buttons
 
@@ -49,7 +54,7 @@ debug("JM  sys.argv 3 >> " + str(sys.argv[3]))
 if str(sys.argv[2]) == '?parar_acestream_2':
     parar_setting_acestream()
 
-if str(sys.argv[2]) == '?limpiar_cache':
+if str(sys.argv[2]) == '?limpiar_cache_setting':
     limpiar_cache_setting()
     
 if str(sys.argv[2]) == '?actualizar_links':
@@ -57,6 +62,10 @@ if str(sys.argv[2]) == '?actualizar_links':
     
 if str(sys.argv[2]) == '?todos_links_setting':
     todos_links_setting()
+
+if str(sys.argv[2]) == '?actualizar_favoritos_setting':
+    actualizar_favoritos_setting()
+
 
 
 # Indentificar Sistema
@@ -69,7 +78,7 @@ debug("JM  Sistema es " + sistema())
 def build_url(query):
 
     return base_url + '?' + urllib.parse.urlencode(query)   #  {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"})
-                                                                                 #  jm = urllib.parse.urlencode(y) # name=Laliga+multiaudio&link=167e3b44a520cd76d4372f6d30fe6d7ccd524175
+                                                            #  jm = urllib.parse.urlencode(y) # name=Laliga+multiaudio&link=167e3b44a520cd76d4372f6d30fe6d7ccd524175
 
 ####### MENUS CANALES ########
 

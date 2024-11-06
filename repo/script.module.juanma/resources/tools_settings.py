@@ -83,58 +83,47 @@ def limpiar_cache_setting():
     notificacion("Caché limpiado")
     return(debug("JM  Caché limpiado"))
 
-
-
 def todos_links_setting():
 
     notificacion("Actualizando lista completa links....")
     debug ("JM  Actualizando lista completa links....")
     
-    notificacion("Tarda unos segundos....")
-    debug ("JM  Tarda unos segundos....")
-
-    notificacion("Espera mensaje de confirmación....")
-    debug ("JM  Espera mensaje de confirmación....")
- 
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     file_ids = open(ruta_ids, mode='w')
 
-    url = "https://sites.google.com/view/elplandeportes/inicio"
-    response = urllib.request.urlopen(url)
+    url = "https://www.robertofreijo.com/acestream-ids/"
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
+
+    request = urllib.request.Request(url, headers=headers)     # Crear la solicitud con los encabezados
+    response = urllib.request.urlopen(request)
     html = response.read().decode('utf-8')
 
-    x = "data-tooltip=\"DAZN LaLiga\""
-    start = html.find(x)
-    y = "Reddit https://reddit.com/user/No_Land656"
-    end = html.find(y)
-    busqueda = html[start:end]
+    busqueda = re.finditer("•", html)                         # Buscar todas las posiciones de "•"
+     
+    result = []
 
-    href_values = re.findall(r'href="([^"]+)"', busqueda)     # Expresión regular para buscar todos los valores dentro de los atributos href
-    result = []                                               # Definir la lista de resultados aquí
+    for match in busqueda:
+        start = match.start()                                                  # Posición de inicio de "•"
+        end = html.find('">', start)                                          # Buscar el final después de "•"  
+        resultado = html[start:end]
+        
+        x = "•"
+        start = resultado.find(x)
+        start = start +1
+        end =  resultado.find("<br")
+        name = resultado[start:end]
+        name = name.strip()
+        name = name.lstrip('#') 
 
-    for href in href_values:
-       parsed_url = urllib.parse.urlparse(href)                              # Parseamos la URL
-       destination_url = urllib.parse.parse_qs(parsed_url.query).get('q')    # Obtener el valor del parámetro 'q' que contiene la URL de destino
+        x = "acestream://"
+        start = resultado.find(x)
+        start = start +12
+        end = start + 40
+        ace_link = resultado[start:end]
+
+        items = {"name": name, "link": ace_link}
+        result.append(items)            
     
-       if destination_url:                                                   #  se utiliza para verificar si destination_url tiene algún valor antes de intentar acceder al primer elemento de la lista 
-         destination_url = destination_url[0]                                # Acceder al primer elemento de la lista
-         parsed_destination_url = urllib.parse.urlparse(destination_url)
-         name = os.path.basename(parsed_destination_url.path)    	     # Obtener el nombre del archivo de la URL analizada
-         name = replace_opcion(name) 
-         try:
-            response = urllib.request.urlopen(destination_url)
-            html_content = response.read().decode('utf-8')
-         except urllib.error.URLError as e:
-            error_message = str(e)                                           # Convertimos el error en una cadena para almacenarlo
-            ##print("Mensaje de error:", error_message)                      # Imprimimos el mensaje de error capturado
-            x = "acestream://"
-            start = error_message.find(x)
-            start = start +12
-            end = start + 40
-            ace_link = error_message[start:end]
-            html_content = None
-            items = {"name": name, "link": ace_link}
-            result.append(items)                                             # Agregar el diccionario a la lista de resultados
             
             
     result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name"
@@ -158,57 +147,48 @@ def actualizar_links_setting():
     
     canales = lista_elementos()
     
-    notificacion("Tarda unos segundos....")
-    debug ("JM  Tarda unos segundos....")
-
-    notificacion("Espera mensaje de confirmación....")
-    debug ("JM  Espera mensaje de confirmación....")
- 
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     file_ids = open(ruta_ids, mode='w')
 
-    url = "https://sites.google.com/view/elplandeportes/inicio"
-    response = urllib.request.urlopen(url)
+    url = "https://www.robertofreijo.com/acestream-ids/"
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
+
+    request = urllib.request.Request(url, headers=headers)     # Crear la solicitud con los encabezados
+    response = urllib.request.urlopen(request)
     html = response.read().decode('utf-8')
 
-    x = "data-tooltip=\"DAZN LaLiga\""
-    start = html.find(x)
-    y = "Reddit https://reddit.com/user/No_Land656"
-    end = html.find(y)
-    busqueda = html[start:end]
-    
-    result = []                                               # Definir la lista de resultados aquí
+    busqueda = re.finditer("•", html)                         # Buscar todas las posiciones de "•"
+ 
+    result = []
 
-
-    for x in canales:
-        href_values = re.findall(r'href="([^"]*{}[^"]*)"'.format(x), busqueda)  # Expresión regular para buscar todos los valores dentro de los atributos href que contienen el valor de la variable "canales"
+    for match in busqueda:
+        start = match.start()                                                  # Posición de inicio de "•"
+        end = html.find('">', start)                                          # Buscar el final después de "•"  
+        resultado = html[start:end]
         
-        for href in href_values:
-           parsed_url = urllib.parse.urlparse(href)                                  # Parseamos la URL
-           destination_url = urllib.parse.parse_qs(parsed_url.query).get('q')        # Obtener el valor del parámetro 'q' que contiene la URL de destino
-    
-           if destination_url:                                                    #  se utiliza para verificar si destination_url tiene algún valor antes de intentar acceder al primer elemento de la lista 
-              destination_url = destination_url[0]  # Acceder al primer elemento de la lista
-              parsed_destination_url = urllib.parse.urlparse(destination_url)
-              name = os.path.basename(parsed_destination_url.path)    		# Obtener el nombre del archivo de la URL analizada
-              name = replace_opcion(name) 
-              try:
-                response = urllib.request.urlopen(destination_url)
-                html_content = response.read().decode('utf-8')
-              except urllib.error.URLError as e:
-                error_message = str(e)                                                               # Convertimos el error en una cadena para almacenarlo
-                ##print("Mensaje de error:", error_message)                                    # Imprimimos el mensaje de error capturado
-                x = "acestream://"
-                start = error_message.find(x)
-                start = start +12
-                end = start + 40
-                ace_link = error_message[start:end]
-                html_content = None
+        x = "•"
+        start = resultado.find(x)
+        start = start +1
+        end =  resultado.find("<br")
+        name = resultado[start:end]
+        name = name.strip()
+        name = name.lstrip('#') 
+
+        x = "acestream://"
+        start = resultado.find(x)
+        start = start +12
+        end = start + 40
+        ace_link = resultado[start:end]
+
+        for canal in canales:
+            if canal in name:
                 items = {"name": name, "link": ace_link}
-                result.append(items)  # Agregar el diccionario a la lista de resultados
-        
-    result_sorted = sorted(result, key=lambda x: x['name'])
-    
+                result.append(items)
+
+
+    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name"
+   
+
     for item in result_sorted:    # Imprimir los elementos ordenados
        json_data = json.dumps(item)                                           # Convertir el diccionario a formato JSON
        file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
@@ -216,8 +196,7 @@ def actualizar_links_setting():
     file_ids.close()
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
-    
-      
+        
     
 def actualizar_favoritos_setting():
 

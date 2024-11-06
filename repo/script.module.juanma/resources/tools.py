@@ -24,15 +24,15 @@ def lista_elementos():
     canales = []
 
     if Dazn_Mov_Liga == "true":
-        canales += ["dazn-laliga", "m-ligatv"]
+        canales += ["LaLiga"]
     if Liga_campeones == "true":
-        canales += ["campeones"]
+        canales += ["Campeones"]
     if F1 == "true":
-        canales += ["dazn-channel-f1"]
+        canales += ["DAZN F1"]
     if Motogp == "true":
-        canales += ["dazn-channel1", "dazn-channel2"]          
+        canales += ["DAZN 1", "DAZN 2"]          
     if Deportes == "true":
-        canales += ["deportes"]
+        canales += ["Deportes"]
 
     debug("JM" + str(canales))
     return(canales)

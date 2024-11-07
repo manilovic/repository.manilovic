@@ -5,6 +5,7 @@
 		<setting id="stop_acestream" type="bool" label="Parar Acestream automaticamente" default="true" visible="!System.Platform.Android" option="close"/>
 		<setting type="sep"/>
 		<setting id="actualizar_favoritos" label="Añadir Favoritos con Canales Deportivos" type="action"  action="RunPlugin(plugin://script.module.juanma?actualizar_favoritos_setting)" option="close"/>
+		<setting id="sobreescribir_favoritos" label="Sobreescribir_favoritos con Canales Deportivos" type="action"  action="RunPlugin(plugin://script.module.juanma?sobreescribir_favoritos_setting)" option="close"/>
 		<setting type="sep"/>	
 		<setting id="clear_cache_acestream" label="Limpiar caché Acestream" type="action"  action="RunPlugin(plugin://script.module.juanma?limpiar_cache_setting)" option="close"/>
 		<setting id="stop_acestream_2" label="Parada Forzosa Acestream AHORA" type="action"  action="RunPlugin(plugin://script.module.juanma?parar_acestream_2)"  visible="!System.Platform.Android" option="close"/>

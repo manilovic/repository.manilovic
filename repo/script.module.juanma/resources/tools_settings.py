@@ -197,6 +197,25 @@ def actualizar_links_setting():
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
         
+        
+def sobreescribir_favoritos_setting():
+
+    ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
+    ruta_backup = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
+    ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
+    ruta_test = xbmcvfs.translatePath("special://home/userdata/favourites.xml.test")
+    
+    debug ("JM Sobreescribiendo archivo favoritos")
+    notificacion(" Sobreescribiendo archivo favoritos")
+    
+    with open(ruta_favoritos, 'w') as file:
+        file.write("")  # Crear un archivo vacío
+    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
+    debug ("JM Copiado favoritos de JM")
+    notificacion("Favoritos actualizado")
+    notificacion("Reiniciar Kodi para que surtan efecto los cambios")
+    debug ("JM Favoritos actualizados")
+
     
 def actualizar_favoritos_setting():
 

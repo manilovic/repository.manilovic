@@ -29,7 +29,8 @@ ruta_backup = xbmcvfs.translatePath("special://home/userdata/favourites.xml.back
 ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
 ruta_test = xbmcvfs.translatePath("special://home/userdata/favourites.xml.test")
 
-debug(ruta_favoritos)
+debug("JM favositos: " + ruta_favoritos)
+
 
 if xbmcvfs.exists(ruta_favoritos):                            # Verifica si existe la ruta de origen
     debug("JM Se encontró el archivo favoritos")
@@ -43,7 +44,7 @@ else:
     
 
 
-#Settings buttons
+#Settings buttons de AJUSTES
 
 debug("JM  sys.argv 0 >> " + str(sys.argv[0]))
 debug("JM  sys.argv 1 >> " + str(sys.argv[1]))
@@ -65,6 +66,10 @@ if str(sys.argv[2]) == '?todos_links_setting':
 
 if str(sys.argv[2]) == '?actualizar_favoritos_setting':
     actualizar_favoritos_setting()
+       
+if str(sys.argv[2]) == '?sobreescribir_favoritos_setting':
+    sobreescribir_favoritos_setting()
+
 
 
 

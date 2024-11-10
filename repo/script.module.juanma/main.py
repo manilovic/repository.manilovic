@@ -31,16 +31,23 @@ ruta_test = xbmcvfs.translatePath("special://home/userdata/favourites.xml.test")
 
 debug("JM favositos: " + ruta_favoritos)
 
+with open(ruta_favoritos, 'w') as file:
+    file.write("")  # Crear un archivo vacío
+shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
+debug ("JM Copiado favoritos de JM")
 
-if xbmcvfs.exists(ruta_favoritos):                            # Verifica si existe la ruta de origen
-    debug("JM Se encontró el archivo favoritos")
 
-else:
-    debug ("JM No se encontró el archivo favoritos")
-    with open(ruta_favoritos, 'w') as file:
-        file.write("")  # Crear un archivo vacío
-    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
-    debug ("JM Copiado favoritos de JM")
+#if xbmcvfs.exists(ruta_favoritos):                            # Verifica si existe la ruta de origen
+#    debug("JM Se encontró el archivo favoritos")
+
+#else:
+#    debug ("JM No se encontró el archivo favoritos")
+#    with open(ruta_favoritos, 'w') as file:
+#        file.write("")  # Crear un archivo vacío
+#    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
+#    debug ("JM Copiado favoritos de JM")
+ 
+ 
     
 
 

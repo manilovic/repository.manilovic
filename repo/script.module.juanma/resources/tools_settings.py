@@ -83,10 +83,14 @@ def limpiar_cache_setting():
     notificacion("Caché limpiado")
     return(debug("JM  Caché limpiado"))
 
+
 def todos_links_setting():
 
     notificacion("Actualizando lista completa links....")
     debug ("JM  Actualizando lista completa links....")
+
+    notificacion("30 segunditos....")
+    
     
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     file_ids = open(ruta_ids, mode='w')
@@ -106,6 +110,7 @@ def todos_links_setting():
         start = match.start()                                                  # Posición de inicio de "•"
         end = html.find('">', start)                                          # Buscar el final después de "•"  
         resultado = html[start:end]
+        debug(f"JM |{resultado}|")
         
         x = "•"
         start = resultado.find(x)
@@ -115,11 +120,33 @@ def todos_links_setting():
         name = name.strip()
         name = name.lstrip('#') 
 
-        x = "acestream://"
+        x = '<a href="'
         start = resultado.find(x)
-        start = start +12
-        end = start + 40
-        ace_link = resultado[start:end]
+        start = start +9
+        end = start +28
+        tiny = resultado[start:end] 
+        
+        partes = tiny.split("https://tinyurl.com/")
+        preview_url = f"https://tinyurl.com/preview/{partes[1]}"
+
+        ############
+        
+        request2 = urllib.request.Request(preview_url, headers=headers)     # Crear la solicitud con los encabezados
+        response2 = urllib.request.urlopen(request2)
+        html2 = response2.read().decode('utf-8')
+        #debug(html2)
+
+        busqueda2 = re.finditer("acestream://", html2)
+
+        for match2 in busqueda2:
+            start = match2.start() # Posición de inicio de "•"
+            start = start +12
+            end = html2.find('"', start)                                          # Buscar el final después de "•"  
+            ace_link = html2[start:end]
+            debug(f"JM |{ace_link}|")
+            break       
+
+        ###########
 
         items = {"name": name, "link": ace_link}
         result.append(items)            
@@ -165,6 +192,8 @@ def actualizar_links_setting():
         start = match.start()                                                  # Posición de inicio de "•"
         end = html.find('">', start)                                          # Buscar el final después de "•"  
         resultado = html[start:end]
+        debug(f"JM |{resultado}|")
+        
         
         x = "•"
         start = resultado.find(x)
@@ -172,18 +201,40 @@ def actualizar_links_setting():
         end =  resultado.find("<br")
         name = resultado[start:end]
         name = name.strip()
-        name = name.lstrip('#') 
+        name = name.lstrip('#')
 
-        x = "acestream://"
-        start = resultado.find(x)
-        start = start +12
-        end = start + 40
-        ace_link = resultado[start:end]
-
+        
         for canal in canales:
             if canal in name:
+                x = '<a href="'
+                start = resultado.find(x)
+                start = start +9
+                end = start +28
+                tiny = resultado[start:end] 
+                
+                partes = tiny.split("https://tinyurl.com/")
+                preview_url = f"https://tinyurl.com/preview/{partes[1]}"
+
+                ############
+                
+                request2 = urllib.request.Request(preview_url, headers=headers)     # Crear la solicitud con los encabezados
+                response2 = urllib.request.urlopen(request2)
+                html2 = response2.read().decode('utf-8')
+                
+                busqueda2 = re.finditer("acestream://", html2)
+                
+                for match2 in busqueda2:
+                    start = match2.start() # Posición de inicio de "•"
+                    start = start +12
+                    end = html2.find('"', start)                                          # Buscar el final después de "•"  
+                    ace_link = html2[start:end]
+                    debug(f"JM |{ace_link}|")
+                    break       
+                ###########
+
                 items = {"name": name, "link": ace_link}
                 result.append(items)
+
 
 
     result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name"
@@ -196,7 +247,8 @@ def actualizar_links_setting():
     file_ids.close()
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
-        
+
+
         
 def sobreescribir_favoritos_setting():
 

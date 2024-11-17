@@ -20,6 +20,9 @@
 		<setting id="F1" type="bool" label="Movistar F1" default="false" />
 		<setting id="Motogp" type="bool" label="Motogp DAZN" default="false" />
 		<setting id="Deportes" type="bool" label="Movistar Deportes" default="false" />
+		<setting id="NBA_TV" type="bool" label="NBA Tv" default="false" />
+		<setting id="Sky" type="bool" label="Sky" default="false" />
+		<setting id="UFC" type="bool" label="UFC" default="false" />
 		<setting type="sep"/>
 		<setting label="Selecciona canales y pulsa aqui para Actualizar lista" type="action"  action="RunPlugin(plugin://script.module.juanma?actualizar_links)" option="close"/>
 	</category>

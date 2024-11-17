@@ -20,11 +20,15 @@ def lista_elementos():
     F1 = getsetting("F1")
     Motogp = getsetting("Motogp")
     Deportes = getsetting("Deportes")
+    NBA = getsetting("NBA_TV")
+    Sky = getsetting("Sky")
+    UFC = getsetting("UFC")
+
                 
     canales = []
 
     if Dazn_Mov_Liga == "true":
-        canales += ["LaLiga"]
+        canales += ["LaLiga","La Liga"]
     if Liga_campeones == "true":
         canales += ["Campeones"]
     if F1 == "true":
@@ -33,6 +37,14 @@ def lista_elementos():
         canales += ["DAZN 1", "DAZN 2"]          
     if Deportes == "true":
         canales += ["Deportes"]
+    if NBA == "true":
+        canales += ["NBA"]          
+    if Sky == "true":
+        canales += ["Sky"]
+    if UFC == "true":
+        canales += ["UFC"]
+
+
 
     debug("JM" + str(canales))
     return(canales)

@@ -77,7 +77,8 @@ if str(sys.argv[2]) == '?actualizar_favoritos_setting':
 if str(sys.argv[2]) == '?sobreescribir_favoritos_setting':
     sobreescribir_favoritos_setting()
 
-
+if str(sys.argv[2]) == '?links_manuales_setting':
+    links_manuales_setting()
 
 
 # Indentificar Sistema
@@ -89,7 +90,7 @@ debug("JM  Sistema es " + sistema())
 
 def build_url(query):
 
-    return base_url + '?' + urllib.parse.urlencode(query)   #  {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"})
+    return base_url + '?' + urllib.parse.urlencode(query)   #  {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"}
                                                             #  jm = urllib.parse.urlencode(y) # name=Laliga+multiaudio&link=167e3b44a520cd76d4372f6d30fe6d7ccd524175
 
 ####### MENUS CANALES ########
@@ -114,14 +115,8 @@ if name is None:
 
     for line in input_file:
         y = json.loads(line)         #  {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"}
-        url = build_url(y)                                     
-        ruta_titulos = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/titulos.txt")
-        output_file = open(ruta_titulos, mode='w')
-        print(y["name"], file=output_file)
-        output_file.close()
-        f = open(ruta_titulos, 'r')
-        titulo = f.read()
-        f.close()
+        url = build_url(y)            
+        titulo = (y["name"])                            
         list_item = xbmcgui.ListItem(titulo)
         info = list_item.getVideoInfoTag()
         info.setTitle(titulo)

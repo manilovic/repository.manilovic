@@ -86,86 +86,36 @@ def limpiar_cache_setting():
 
 def todos_links_setting():
 
-    notificacion("Actualizando lista completa links....")
-    debug ("JM  Actualizando lista completa links....")
-
-    notificacion("30 segunditos....")
+    notificacion("Actualizando lista manual completa links....")
+    debug ("JM  Actualizando lista manual completa links....")
     
-    
-    ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    file_ids = open(ruta_ids, mode='w')
-
-    url = "https://www.robertofreijo.com/acestream-ids/"
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
-
-    request = urllib.request.Request(url, headers=headers)     # Crear la solicitud con los encabezados
-    response = urllib.request.urlopen(request)
-    html = response.read().decode('utf-8')
-
-    busqueda = re.finditer("•", html)                         # Buscar todas las posiciones de "•"
-     
     result = []
-
-    for match in busqueda:
-        start = match.start()                                                  # Posición de inicio de "•"
-        end = html.find('">', start)                                          # Buscar el final después de "•"  
-        resultado = html[start:end]
-        debug(f"JM |{resultado}|")
-        
-        x = "•"
-        start = resultado.find(x)
-        start = start +1
-        end =  resultado.find("<br")
-        name = resultado[start:end]
-        name = name.strip()
-        name = name.lstrip('#') 
-
-        x = '<a href="'
-        start = resultado.find(x)
-        start = start +9
-        end = start +28
-        tiny = resultado[start:end] 
-        
-        partes = tiny.split("https://tinyurl.com/")
-        preview_url = f"https://tinyurl.com/preview/{partes[1]}"
-
-        ############
-        
-        request2 = urllib.request.Request(preview_url, headers=headers)     # Crear la solicitud con los encabezados
-        response2 = urllib.request.urlopen(request2)
-        html2 = response2.read().decode('utf-8')
-        #debug(html2)
-
-        busqueda2 = re.finditer("acestream://", html2)
-
-        for match2 in busqueda2:
-            start = match2.start() # Posición de inicio de "•"
-            start = start +12
-            end = html2.find('"', start)                                          # Buscar el final después de "•"  
-            ace_link = html2[start:end]
-            debug(f"JM |{ace_link}|")
-            break       
-
-        ###########
-
-        items = {"name": name, "link": ace_link}
-        result.append(items)            
     
-            
-            
-    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name"
-
-
-    for item in result_sorted:                                               # Imprimir los elementos ordenados
-       json_data = json.dumps(item)                                           # Convertir el diccionario a formato JSON
-       file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
-      
-
-      
-    file_ids.close()
+    ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
+    idsmanuales = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids/manualesids.json")
+    
+    with open(idsmanuales,'r') as file:
+       lines = file.readlines()
+    
+    for line in lines:
+       data = json.loads(line)
+       result.append(data)
+       debug (f"JM canales {data}")
+                
+    
+    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name" 
+    
+    with open(ids, mode='w') as file_ids:
+       for item in result:                                                # Imprimir los elementos ordenados
+          json_data = json.dumps(item)                                            # Convertir el diccionario a formato JSON
+          file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
+        
+    
+   
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
-    
+      
+
 
 def actualizar_links_setting():
 
@@ -247,6 +197,46 @@ def actualizar_links_setting():
     file_ids.close()
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
+
+
+
+def links_manuales_setting():
+
+    notificacion("Actualizando lista manual...")
+    debug ("JM  Actualizando lista manual...")
+    
+    canales = lista_elementos()
+    debug (f"JM canales {canales}")
+    
+    manuales_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids/manualesids.json")
+    with open(manuales_ids, 'r') as file:
+       lines = file.readlines()
+    
+    ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
+    file_ids = open(ruta_ids, mode='w')
+    
+    result = []
+    
+    for canal in canales:
+       debug (f"JM {canal}")
+       
+       for line in lines:
+          if canal in line:
+            data = json.loads(line)
+            result.append(data)
+            debug (f"JM canales {data}")
+                
+    
+    #result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name" 
+    
+    for item in result:    # Imprimir los elementos ordenados
+       json_data = json.dumps(item)                                           # Convertir el diccionario a formato JSON
+       file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
+        
+    #file_ids.close()
+    notificacion("Links actualizados")
+    debug ("JM  Links actualizados")
+
 
 
         

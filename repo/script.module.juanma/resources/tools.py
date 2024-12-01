@@ -23,18 +23,19 @@ def lista_elementos():
     NBA = getsetting("NBA_TV")
     Sky = getsetting("Sky")
     UFC = getsetting("UFC")
+    Golf = getsetting("Golf")
 
                 
     canales = []
 
     if Dazn_Mov_Liga == "true":
-        canales += ["LaLiga","La Liga"]
+        canales += ["LaLiga"]
     if Liga_campeones == "true":
         canales += ["Campeones"]
     if F1 == "true":
-        canales += ["DAZN F1"]
+        canales += ["F1"]
     if Motogp == "true":
-        canales += ["DAZN 1", "DAZN 2"]          
+        canales += ["DAZN"]          
     if Deportes == "true":
         canales += ["Deportes"]
     if NBA == "true":
@@ -43,6 +44,8 @@ def lista_elementos():
         canales += ["Sky"]
     if UFC == "true":
         canales += ["UFC"]
+    if Golf == "true":
+        canales += ["Golf"]
 
 
 
@@ -88,7 +91,30 @@ def notificacion(line1):
     timeml = 5000 #in miliseconds
     xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__,line1, timeml, __icon__))
     
-      
+    
+    
+def replace_opcion(name):
+     
+    name = name.replace("c1", "1") 
+    name = name.replace("c2", "2")
+    name = name.replace("o1", "Alternativo 1")
+    name = name.replace("o2", "Alternativo 2")
+    name = name.replace("o3", "Alternativo 3")
+    name = name.replace("o-3", "Alternativo 3")
+    name = name.replace("o4", "Alternativo 4")
+    name = name.replace("o5", "Alternativo 5")
+    name = name.replace("02", "Alternativo 2")
+    name = name.replace("03", "Alternativo 3")
+    name = name.replace("m-ligatv", "LaLiga TV-")
+    name = name.replace("channel","")  
+    name = name.replace("deportes","M. Deportes-") 
+    name = name.replace("m-golf1-2","M. Golf 1-") 
+    name = name.replace("campeones","Liga Campeones-") 
+    name = name.replace("-", " ")  # Eliminar el guion "-"
+    name = " ".join(word.capitalize() for word in name.split())  # Convertir la primera letra de cada palabra en mayúscula
+    return name
+   
+   
 def arrancar_acestream():
     
                    # if "linux" and "arm"  >> 'osmc','openelec','raspbian','raspios'

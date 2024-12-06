@@ -245,7 +245,6 @@ def sobreescribir_favoritos_setting():
     ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
     ruta_backup = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
     ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
-    ruta_test = xbmcvfs.translatePath("special://home/userdata/favourites.xml.test")
     
     debug ("JM Sobreescribiendo archivo favoritos")
     notificacion(" Sobreescribiendo archivo favoritos")

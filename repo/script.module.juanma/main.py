@@ -27,28 +27,21 @@ debug ("JM ADDON INICIO")
 ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
 ruta_backup = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
 ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
-ruta_test = xbmcvfs.translatePath("special://home/userdata/favourites.xml.test")
-
-debug("JM favositos: " + ruta_favoritos)
-
-with open(ruta_favoritos, 'w') as file:
-    file.write("")  # Crear un archivo vacío
-shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
-debug ("JM Copiado favoritos de JM")
 
 
-#if xbmcvfs.exists(ruta_favoritos):                            # Verifica si existe la ruta de origen
-#    debug("JM Se encontró el archivo favoritos")
+debug("JM favoritos: " + ruta_favoritos)
 
-#else:
-#    debug ("JM No se encontró el archivo favoritos")
-#    with open(ruta_favoritos, 'w') as file:
-#        file.write("")  # Crear un archivo vacío
-#    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
-#    debug ("JM Copiado favoritos de JM")
+if xbmcvfs.exists(ruta_favoritos):                            # Verifica si existe la ruta de origen
+    debug("JM Se encontró el archivo favoritos")
+
+else:
+    debug ("JM No se encontró el archivo favoritos")
+    with open(ruta_favoritos, 'w') as file:
+        file.write("")  # Crear un archivo vacío
+    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
+    debug ("JM Copiado favoritos de JM")
  
- 
-    
+  
 
 
 #Settings buttons de AJUSTES

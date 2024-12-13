@@ -118,6 +118,10 @@ if name is None:
            thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/F1_logo_v2.png")
            list_item.setArt({'thumb': thumb})
         
+        if  "Bar" in titulo:
+           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/LaligaTvBar.png")
+           list_item.setArt({'thumb': thumb})
+           
         if  "DAZN LaLiga" in titulo:
            thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_liga_logo_v2.png")
            list_item.setArt({'thumb': thumb})     

@@ -56,14 +56,14 @@ def limpiar_cache_setting():
         try:
         # Listar contenido del directorio
             files_and_dirs = os.listdir(path)
-            print(f"Contenido de {path}:")
+            debug("JM " + path)
             
             for item in files_and_dirs:
-            	print(item)
+            	debug("JM lista" + item)
         except FileNotFoundError:
-            print(f"La ruta {path} no existe.")
-        except PermissionError:
-            print(f"No tienes permisos para acceder a {path}.")
+            debug("JM no existe" + path)
+        except PermissionError:     
+            debug("JM no permisos" + path)
         
         
         

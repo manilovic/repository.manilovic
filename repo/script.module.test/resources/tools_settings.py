@@ -48,6 +48,25 @@ def parar_setting_acestream():
 def limpiar_cache_setting():
         
     if "ANDROID_STORAGE" in os.environ:
+    
+    
+    
+        # Ruta que deseas listar
+        path = "/storage/emulated/0/Android/data/"
+        try:
+        # Listar contenido del directorio
+            files_and_dirs = os.listdir(path)
+            print(f"Contenido de {path}:")
+            
+            for item in files_and_dirs:
+            	print(item)
+        except FileNotFoundError:
+            print(f"La ruta {path} no existe.")
+        except PermissionError:
+            print(f"No tienes permisos para acceder a {path}.")
+        
+        
+        
         pathTV = '/storage/emulated/0/org.acestream.engine/.ACEStream/.acestream_cache/'
         #pathPHONE = '/storage/emulated/0/Android/data/org.acestream.media.atv/files/.ACEStream/.acestream_cache/'
         pathPHONE = '/storage/emulated/0/Android/data/org.acestream.node/files/.ACEStream/.acestream_cache/'
@@ -57,14 +76,18 @@ def limpiar_cache_setting():
         ## JM favoritos: /storage/emulated/0/Android/data/org.xbmc.kodi/files/.kodi/userdata/favourites.xml
 
         ruta_PHONE = os.path.exists(pathPHONE)
+        debug("JM " + ruta_PHONE)
         
         ruta_1 = '/storage/emulated/0/Android/data/org.acestream.node/files/'
         ruta_1 = os.path.exists(ruta_1)
+        debug("JM " + ruta_1)
         ruta_2 = '/storage/emulated/0/Android/data/'
+        debug("JM " + ruta_2)
         ruta_2 = os.path.exists(ruta_2)
+        debug("JM " + ruta_2)
         ruta_3 = '/storage/emulated/0/'
         ruta_3 = os.path.exists(ruta_3)
-        
+        debug("JM " + ruta_3)
         
         if str(ruta_1) == "True":
             debug("JM  caché TV es "+ str(ruta_1))     
@@ -92,6 +115,17 @@ def limpiar_cache_setting():
             debug("JM  caché borrado")
             
     elif sistema() == "Ubuntu":
+    
+        ruta_1 = '/storage/emulated/0/Android/data/org.acestream.node/files/'
+        ruta_1 = os.path.exists(ruta_1)
+        debug("JM " + str(ruta_1))
+        ruta_2 = '/storage/emulated/0/Android/data/'
+        debug("JM " + str(ruta_2))
+        ruta_2 = os.path.exists(ruta_2)
+        debug("JM " + str(ruta_2))
+        ruta_3 = '/storage/emulated/0/'
+        ruta_3 = os.path.exists(ruta_3)
+        debug("JM " + str(ruta_3))
         notificacion("Limpiando caché UBUNTU")
         debug("JM  Limpiando caché UBUNTU")
         comando = "find  /home/*/snap/acestreamplayer/??/.ACEStream/.acestream_cache/* -maxdepth 1 -mmin +120 -delete"

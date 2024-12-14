@@ -47,7 +47,7 @@ def parar_setting_acestream():
 
 def limpiar_cache_setting():
         
-    debug ("JM " + os.environ)
+    debug ("JM " + str(os.environ))
             
     if "ANDROID_STORAGE" in os.environ:
     

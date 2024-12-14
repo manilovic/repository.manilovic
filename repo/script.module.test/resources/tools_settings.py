@@ -47,7 +47,11 @@ def parar_setting_acestream():
 
 def limpiar_cache_setting():
         
+
+    debug ("JM inicio test cache")
     debug ("JM " + str(os.environ))
+    notificacion("test")
+    
             
     if "ANDROID_STORAGE" in os.environ:
     

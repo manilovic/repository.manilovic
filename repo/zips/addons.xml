@@ -110,7 +110,7 @@
       <icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.module.test" name="TEST" version="7.40" provider-name="Manilovic">
+</addon><addon id="script.module.test" name="TEST" version="7.41" provider-name="Manilovic">
 	<requires>
 		<import addon="script.module.horus" />
 		<import addon="script.module.six" />

@@ -73,7 +73,7 @@
         <forum>https://t.me/KodiManiac
         https://t.me/acestream_spanish</forum>
     </extension>
-</addon><addon id="script.module.juanma" name="Manilovic" version="7.31" provider-name="Manilovic">
+</addon><addon id="script.module.juanma" name="Manilovic" version="7.45" provider-name="Manilovic">
 	<requires>
 		<import addon="script.module.horus" />
 		<import addon="script.module.six" />
@@ -92,6 +92,7 @@
 		<news>
 			-Nuevos Favoritos (sobreescribe)
 			-Nuevos canales personalizados
+			-Solo cache en ubuntu
 		</news>
 	</extension>
 </addon><addon id="script.module.six" name="six" version="1.15.0" provider-name="gutworth">

@@ -20,7 +20,8 @@ import shutil
 
 
 # Debug
-debug ("JM ADDON INICIO")
+debug ("JM ADDON INICIO TEST")
+
 
 # Favoritos
 

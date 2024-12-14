@@ -47,25 +47,40 @@ def parar_setting_acestream():
 
 def limpiar_cache_setting():
         
-    if "ANDROID_STORAGE" in os.environ:
-        pathTV = '/storage/emulated/0/org.acestream.engine/.ACEStream/.acestream_cache/'
-        pathPHONE = '/storage/emulated/0/Android/data/org.acestream.media.atv/files/.ACEStream/.acestream_cache/'
+
+    debug ("JM caché")
+    debug ("JM " + str(os.environ))
+              
+    if "ANDROID_STORAGE" in os.environ:  ########### No hay permisos en ANDROID para borrar
         
-        ruta_TV = os.path.exists(pathTV)
-        ruta_PHONE = os.path.exists(pathPHONE)
-                
-        if str(ruta_TV) == "True":
-            debug("JM  caché TV es "+ str(ruta_TV))     
-            notificacion("Limpiando cache")
-            shutil.rmtree(pathTV, ignore_errors=True)
+        # Ruta que deseas listar
+        path = "/storage/emulated/0/Android/data/"
+        try:
+        # Listar contenido del directorio
+            files_and_dirs = os.listdir(path)
+            debug("JM " + path)
+            
+            for item in files_and_dirs:
+            	debug("JM lista" + item)
+        except FileNotFoundError:
+            debug("JM no existe" + path)
+        except PermissionError:              
+            debug("JM no permisos" + path)   ######## ERROR 
+        
+
+        path = '/storage/emulated/0/Android/data/org.acestream.node/files/.ACEStream/.acestream_cache/'  ### ruta correcta
+        ruta_PHONE = os.path.exists(path)
+        debug("JM ruta_PHONE es " + str(ruta_PHONE))
+        debug("JM ruta_PHONE es " + str(path))
+        
+                                    
+        if str(ruta_PHONE) == "True":
+            shutil.rmtree(path, ignore_errors=True)
             debug("JM  caché borrado")
-        elif str(ruta_PHONE) == "True":
-            debug("JM  caché TV es "+ str(ruta_PHONE))     
-            notificacion("Limpiando cache")
-            shutil.rmtree(pathPHONE, ignore_errors=True)
-            debug("JM  caché borrado")
+
             
     elif sistema() == "Ubuntu":
+    
         notificacion("Limpiando caché UBUNTU")
         debug("JM  Limpiando caché UBUNTU")
         comando = "find  /home/*/snap/acestreamplayer/??/.ACEStream/.acestream_cache/* -maxdepth 1 -mmin +120 -delete"

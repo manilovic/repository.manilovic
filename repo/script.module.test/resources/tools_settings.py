@@ -52,12 +52,18 @@ def limpiar_cache_setting():
         #pathPHONE = '/storage/emulated/0/Android/data/org.acestream.media.atv/files/.ACEStream/.acestream_cache/'
         pathPHONE = '/storage/emulated/0/Android/data/org.acestream.node/files/.ACEStream/.acestream_cache/'
         
-        ruta_TV = os.path.exists(pathTV)
+
+        ## ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml") >>>    /storage/emulated/0/Android/data/org.xbmc.kodi/files/
+        ## JM favoritos: /storage/emulated/0/Android/data/org.xbmc.kodi/files/.kodi/userdata/favourites.xml
+
         ruta_PHONE = os.path.exists(pathPHONE)
         
         ruta_1 = '/storage/emulated/0/Android/data/org.acestream.node/files/'
+        ruta_1 = os.path.exists(ruta_1)
         ruta_2 = '/storage/emulated/0/Android/data/'
+        ruta_2 = os.path.exists(ruta_2)
         ruta_3 = '/storage/emulated/0/'
+        ruta_3 = os.path.exists(ruta_3)
         
         
         if str(ruta_1) == "True":

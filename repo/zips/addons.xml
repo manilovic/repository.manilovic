@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='utf-8'?>
+<addons><addon id="repository.GTKing-Matrix" name="[COLOR steelblue][B]Repo[/B][/COLOR] [COLOR azure][B]GTKing[/B] [/COLOR][COLOR limegreen][B]MATRIX[/B][/COLOR]" version="1.9" provider-name="GTKingTEAM">
+    <extension point="xbmc.addon.repository" name="[COLOR dodgerblue][B]Repo[/B][/COLOR] [COLOR azure][B]GTKing[/B] [COLOR limegreen][B]MATRIX[/B][/COLOR]">
+        <dir minversion="18.0" maxversion="18.9.0">
+            <info compressed="false">https://raw.githubusercontent.com/gtkingbuild/Repo-GTKing/master/leia/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/gtkingbuild/Repo-GTKing/master/leia/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/gtkingbuild/Repo-GTKing/master/leia/zips/</datadir>
+        </dir>
+        <dir minversion="18.9.0">
+            <info compressed="false">https://raw.githubusercontent.com/gtkingbuild/Repo-GTKing/master/matrix/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/gtkingbuild/Repo-GTKing/master/matrix/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/gtkingbuild/Repo-GTKing/master/matrix/zips/</datadir>
+        </dir>
+    </extension>
+    
+    <extension point="xbmc.addon.metadata">
+        <summary>[COLOR steelblue]Repo[/COLOR] [COLOR azure]GTKing[/COLOR] [COLOR limegreen]MATRIX[/COLOR]</summary>
+        <description>Repositorio de addons [COLOR dodgerblue]GTKING[/COLOR].
+[COLOR gold]Developers:[/COLOR] DavidZgZ, JoseaTEBA y GTKing TEAM</description> 		             
+        <disclaimer>Éste repositorio sólo recoge addons válidos para Kodi 19.x MATRIX.</disclaimer>
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+		<source>https://github.com/gtkingbuild/Repo-GTKing/</source>
+    </extension>
+</addon><addon id="repository.manilovic" name="[COLOR lime]Repositorio Manilovic[/COLOR]" version="2.0.0" provider-name="Manilovic">
+    <extension point="xbmc.addon.repository" name="Manilovic official Repo">
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/manilovic/repository.manilovic/master/repo/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/manilovic/repository.manilovic/master/repo/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/manilovic/repository.manilovic/master/repo/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Repositorio Manilovic</summary>
+        <description>Repo de Manilovic</description>
+        <disclaimer />
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon><addon id="script.module.horus" name="Horus" version="1.1.9" provider-name="Caperucitaferoz">
+    <requires>
+        <import addon="script.module.six" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <description>Horus:
+"Señor de sus ojos"
+"Unificador de las dos tierras"
+"Señor de las estrellas circumpolares"
+"El de los dos ojos"
+        </description>
+        <disclaimer>En Horus no vais a encontrar ningún tipo de contenido: ni películas, ni series ni eventos deportivos.</disclaimer>
+        <platform>all</platform>
+        <assets>
+              <icon>icon.png</icon>
+              <fanart>fanart.jpg</fanart>
+              <screenshot>resources/media/Captura1.png</screenshot>
+              <screenshot>resources/media/Captura2.png</screenshot>
+              <screenshot>resources/media/Captura3.png</screenshot>
+              <screenshot>resources/media/Captura4.png</screenshot>
+        </assets>
+        <news>
+            - Añadido soporte para enlaces magnet-torrent
+        </news>
+        <forum>https://t.me/KodiManiac
+        https://t.me/acestream_spanish</forum>
+    </extension>
+</addon><addon id="script.module.juanma" name="Manilovic" version="7.55" provider-name="Manilovic">
+	<requires>
+		<import addon="script.module.horus" />
+		<import addon="script.module.six" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="main.py">         
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<description>Addon de Manilovic</description>
+		<disclaimer>Enlaces a Canales</disclaimer>
+		<platform>all</platform>
+		<assets>
+			<icon>resources/logos/therocklogo.jpg</icon>
+			<fanart>resources/logos/therocklogo.jpg</fanart>
+		</assets>
+		<news>
+			-Nuevos Favoritos (sobreescribe)
+			-Nuevos canales personalizados
+			-Solo cache en ubuntu
+		</news>
+	</extension>
+</addon><addon id="script.module.six" name="six" version="1.15.0" provider-name="gutworth">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0" />
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Python 2 and 3 compatibility utilities.</summary>
+    <description lang="en_GB">Six is a Python 2 and 3 compatibility library. It provides utility functions for smoothing over the differences between the Python versions with the goal of writing Python code that is compatible on both Python versions. See the documentation for more information on what is provided.</description>
+    <platform>all</platform>
+    <license>MIT</license>
+    <source>https://github.com/benjaminp/six</source>
+    <website>https://pypi.org/project/six/</website>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon><addon id="script.module.test" name="TEST" version="7.41" provider-name="Manilovic">
+	<requires>
+		<import addon="script.module.horus" />
+		<import addon="script.module.six" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="main.py">         
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<description>Addon de Manilovic</description>
+		<disclaimer>Enlaces a Canales</disclaimer>
+		<platform>all</platform>
+		<assets>
+			<icon>resources/logos/therocklogo.jpg</icon>
+			<fanart>resources/logos/therocklogo.jpg</fanart>
+		</assets>
+		<news>
+			-Nuevos Favoritos (sobreescribe)
+			-Nuevos canales personalizados
+			-Nuevos cachés
+		</news>
+	</extension>
+</addon><addon id="xbmc.python" version="3.0.0" provider-name="Team Kodi">
+  <backwards-compatibility abi="3.0.0" />
+  <requires>
+    <import addon="xbmc.core" version="0.1.0" />
+  </requires>
+  <extension-point id="script" schema="script.xsd" />
+  <extension-point id="subtitles" schema="script.xsd" />
+  <extension-point id="lyrics" schema="script.xsd" />
+  <extension-point id="weather" schema="script.xsd" />
+  <extension-point id="library" schema="script.xsd" />
+  <extension-point id="screensaver" schema="script.xsd" />
+  <extension-point id="plugin" schema="pluginsource.xsd" />
+  <extension-point id="context.item" schema="contextitem.xsd" />
+</addon></addons>

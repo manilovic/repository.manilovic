@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<category label="Opciones">
+		<setting id="debug" type="bool" label="Habilitar Mensajes Debug" default="true"/>
+		<setting id="stop_acestream" type="bool" label="Parar Acestream automaticamente" default="true" visible="!System.Platform.Android" option="close"/>
+		<setting type="sep"/>
+		<setting id="actualizar_favoritos" label="Añadir Favoritos con Canales Deportivos" type="action"  action="RunPlugin(plugin://script.module.juanma?actualizar_favoritos_setting)" option="close"/>
+		<setting id="sobreescribir_favoritos" label="Sobreescribir_favoritos con Canales Deportivos" type="action"  action="RunPlugin(plugin://script.module.juanma?sobreescribir_favoritos_setting)" option="close"/>
+		<setting type="sep"/>	
+		<setting id="clear_cache_acestream" label="Limpiar caché Acestream" type="action"  action="RunPlugin(plugin://script.module.juanma?limpiar_cache_setting)" visible="!System.Platform.Android" option="close"/>
+		<setting id="stop_acestream_2" label="Parada Forzosa Acestream AHORA" type="action"  action="RunPlugin(plugin://script.module.juanma?parar_acestream_2)"  visible="!System.Platform.Android" option="close"/>
+		<setting label="Horus install acestream" type="action"  action="RunPlugin(plugin://script.module.horus?action=install_acestream)" visible="!System.Platform.Android" option="close"/>
+	</category>
+	<category label="Lista completa Canales">
+		<setting label="Actualizar Lista Completa de canales" type="action"  action="RunPlugin(plugin://script.module.juanma?todos_links_setting)" option="close"/>
+	</category>
+	<category label="Canales Manual">
+		<setting id="Dazn_Mov_Liga" type="bool" label="Liga (Dazn y Movistar)" default="true"/>
+		<setting id="Liga_campeones" type="bool" label="Liga de Campeones" default="false" />
+		<setting id="F1" type="bool" label="Movistar F1" default="false" />
+		<setting id="Motogp" type="bool" label="Motogp DAZN" default="false" />
+		<setting id="Deportes" type="bool" label="Movistar Deportes" default="false" />
+		<setting id="NBA_TV" type="bool" label="NBA Tv" default="false" />
+		<setting id="Sky" type="bool" label="Sky" default="false" />
+		<setting id="UFC" type="bool" label="UFC" default="false" />
+		<setting type="sep"/>
+		<setting label="Selecciona canales y pulsa aqui para Actualizar lista" type="action"  action="RunPlugin(plugin://script.module.juanma?links_manuales_setting)" option="close"/>
+	</category>
+</settings>

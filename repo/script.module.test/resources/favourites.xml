@@ -1,0 +1,12 @@
+<favourites>
+    <favourite name="Manilovic" thumb="special://home/addons/script.module.juanma/resources/logos/therocklogo.jpg">ActivateWindow(10001,&quot;plugin://script.module.juanma&quot;,return)</favourite>
+    <favourite name="LaLiga TV Bar&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/LaligaTvBar.png">PlayMedia(&quot;plugin://script.module.juanma/?name=Dazn+Laliga&amp;link=608b0faf7d3d25f6fe5dba13d5e4b4142949990e&quot;)</favourite>
+    <favourite name="Dazn LaLiga&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Dazn_liga_logo_v2.png">PlayMedia(&quot;plugin://script.module.juanma/?name=Dazn+Laliga&amp;link=110d441ddc9713a7452588770d2bc85504672f47&quot;)</favourite>
+    <favourite name="Movistar LaLiga&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Mov_liga_logo_v2.png">PlayMedia(&quot;plugin://script.module.juanma/?name=Laliga+Tv&amp;link=d15a0eaf825b5f8f94259d5209688a7e97e6acde&quot;)</favourite>
+    <favourite name="Liga Campeones 1&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Campeones_logo_v2.png">PlayMedia(&quot;plugin://script.module.juanma/?name=Liga+Campeones+1&amp;link=775abd8697715c48a357906d40734ccd2a10513c&quot;)</favourite>
+    <favourite name="Dazn F1&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/F1_logo_v2.png">PlayMedia(&quot;plugin://script.module.juanma/?name=Dazn+F1&amp;link=d6281d4e6310269b416180442a470d23a4a99dc9&quot;)</favourite> 
+    <favourite name="Dazn 1&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Motogp_logo_v2.png">PlayMedia(&quot;plugin://script.module.juanma/?name=Dazn+1&amp;link=d5b2c6b940cf3df5e8f9dc6f000f0ea23a10b151&quot;)</favourite>
+    <favourite name="M. Golf 1&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Golf_logo_v2.png">PlayMedia(&quot;plugin://script.module.juanma/?name=M.+Golf+1&amp;link=4f945b0ba4206fa2676b61e9eaa465ac3dcc8122&quot;)</favourite>
+    <favourite name="M. Deportes 1&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Deportes_logo_v2.png">PlayMedia(&quot;plugin://script.module.juanma/?name=M.+Deportes+1&amp;link=55d4602cb22b0d8a33c10c2c2f42dae64a9e8895&quot;)</favourite>
+    <favourite name="Eurosport 1&#x0A;" thumb="special://home/addons/script.module.juanma/resources/logos/Eurosport_1_logo_v2.png">PlayMedia(&quot;plugin://script.module.juanma/?name=Eurosport+1&amp;link=5e4cd48c79f991fcbee2de8b9d30c4b16de3b952&quot;)</favourite>
+</favourites>

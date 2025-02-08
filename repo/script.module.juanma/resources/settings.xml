@@ -13,6 +13,7 @@
 	</category>
 	<category label="Lista completa Canales">
 		<setting label="Actualizar Lista Completa de canales" type="action"  action="RunPlugin(plugin://script.module.juanma?todos_links_setting)" option="close"/>
+		<setting label="Lista Completa de canales Incorrectos" type="action" action="RunPlugin(plugin://script.module.juanma?todos_malos_setting)" option="close"/>
 	</category>
 	<category label="Canales Manual">
 		<setting id="Dazn_Mov_Liga" type="bool" label="Liga (Dazn y Movistar)" default="true"/>
@@ -23,6 +24,7 @@
 		<setting id="NBA_TV" type="bool" label="NBA Tv" default="false" />
 		<setting id="Sky" type="bool" label="Sky" default="false" />
 		<setting id="UFC" type="bool" label="UFC" default="false" />
+		<setting id="Extranjeras" type="bool" label="Canales Extranjeros" default="false" />
 		<setting type="sep"/>
 		<setting label="Selecciona canales y pulsa aqui para Actualizar lista" type="action"  action="RunPlugin(plugin://script.module.juanma?links_manuales_setting)" option="close"/>
 	</category>

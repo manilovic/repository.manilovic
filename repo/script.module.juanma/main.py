@@ -64,6 +64,9 @@ if str(sys.argv[2]) == '?actualizar_links':
 if str(sys.argv[2]) == '?todos_links_setting':
     todos_links_setting()
 
+if str(sys.argv[2]) == '?todos_malos_setting':
+    todos_malos_setting()
+
 if str(sys.argv[2]) == '?actualizar_favoritos_setting':
     actualizar_favoritos_setting()
        
@@ -72,6 +75,7 @@ if str(sys.argv[2]) == '?sobreescribir_favoritos_setting':
 
 if str(sys.argv[2]) == '?links_manuales_setting':
     links_manuales_setting()
+
 
 
 # Indentificar Sistema

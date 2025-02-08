@@ -132,6 +132,39 @@ def todos_links_setting():
       
 
 
+
+def todos_malos_setting():
+
+    notificacion("Actualizando lista mala....")
+    debug ("JM  Actualizando lista mala....")
+    
+    result = []
+    
+    ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
+    idsmanuales = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids/malos_ids.json")
+    
+    with open(idsmanuales,'r') as file:
+       lines = file.readlines()
+    
+    for line in lines:
+       data = json.loads(line)
+       result.append(data)
+       debug (f"JM canales {data}")
+                
+    
+    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name" 
+    
+    with open(ids, mode='w') as file_ids:
+       for item in result:                                                # Imprimir los elementos ordenados
+          json_data = json.dumps(item)                                            # Convertir el diccionario a formato JSON
+          file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
+        
+    
+   
+    notificacion("Links actualizados")
+    debug ("JM  Links actualizados")
+
+
 def actualizar_links_setting():
 
     notificacion("Actualizando lista pequeña links....")

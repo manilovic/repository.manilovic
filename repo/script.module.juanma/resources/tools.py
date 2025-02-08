@@ -4,7 +4,7 @@ import sys
 import time
 import os
 import platform
-
+import re
 
 def debug(message):
 
@@ -24,6 +24,7 @@ def lista_elementos():
     Sky = getsetting("Sky")
     UFC = getsetting("UFC")
     Golf = getsetting("Golf")
+    Extranjeras = getsetting("Extranjeras")
 
                 
     canales = []
@@ -46,8 +47,15 @@ def lista_elementos():
         canales += ["UFC"]
     if Golf == "true":
         canales += ["Golf"]
+        
+    if Extranjeras == "true":
+        patron = r"\([A-Za-z]{3}\)"
+        for canal in canales:
+          if re.search(patron, canal):
+              canales += [canal]
 
 
+ 
 
     debug("JM" + str(canales))
     return(canales)
@@ -92,28 +100,6 @@ def notificacion(line1):
     xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__,line1, timeml, __icon__))
     
     
-    
-def replace_opcion(name):
-     
-    name = name.replace("c1", "1") 
-    name = name.replace("c2", "2")
-    name = name.replace("o1", "Alternativo 1")
-    name = name.replace("o2", "Alternativo 2")
-    name = name.replace("o3", "Alternativo 3")
-    name = name.replace("o-3", "Alternativo 3")
-    name = name.replace("o4", "Alternativo 4")
-    name = name.replace("o5", "Alternativo 5")
-    name = name.replace("02", "Alternativo 2")
-    name = name.replace("03", "Alternativo 3")
-    name = name.replace("m-ligatv", "LaLiga TV-")
-    name = name.replace("channel","")  
-    name = name.replace("deportes","M. Deportes-") 
-    name = name.replace("m-golf1-2","M. Golf 1-") 
-    name = name.replace("campeones","Liga Campeones-") 
-    name = name.replace("-", " ")  # Eliminar el guion "-"
-    name = " ".join(word.capitalize() for word in name.split())  # Convertir la primera letra de cada palabra en mayúscula
-    return name
-   
    
 def arrancar_acestream():
     

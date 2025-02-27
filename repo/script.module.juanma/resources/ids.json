@@ -1,10 +1,8 @@
 {"name": "LaLiga TV Bar MultiAudio", "link": "94d34491106e00394835c8cb68aa94481339b53f"}
-{"name": "LaLiga TV Bar (NO-24h)", "link": "a7a545d5f8040ca6626aa24f550c286642f24928"}
-{"name": "LaLiga TV Bar (NO-24h)", "link": "eb3fe9045283703e50f338428e22471350660015"}
-{"name": "LaLiga TV Bar (NO-24h)", "link": "608b0faf7d3d25f6fe5dba13d5e4b4142949990e"}
+{"name": "LaLiga TV Bar trompicones", "link": "608b0faf7d3d25f6fe5dba13d5e4b4142949990e"}
 {"name": "LaLiga TV Bar (720p)", "link": "954b2cb573313690f2a6d6a2e70102fb49ace952"}
 {"name": "LaLiga TV Bar (720p)", "link": "5834660ff7ae10f0514dc23c241c054dc0272d01"}
-{"name": "DAZN LaLiga", "link": "110d441ddc9713a7452588770d2bc85504672f47"}
+{"name": "DAZN LaLiga MultiAudio", "link": "110d441ddc9713a7452588770d2bc85504672f47"}
 {"name": "DAZN LaLiga 2", "link": "97ba38d47680954be40e48bd8f43e17222fefecb"}
 {"name": "M. LaLiga MultiAudio", "link": "d3de78aebe544611a2347f54d5796bd87f16c92d"}
 {"name": "M. LaLiga MultiAudio (NO-24h)", "link": "6d05b31e5e8fdae312fbd57897363a7b10ddb163"}
@@ -37,8 +35,11 @@
 {"name": "M. Liga Campeones 11 (720p)", "link": "a12a16f74cf12799d4475ae867dc61eb60e1ba2e"}
 {"name": "M. Liga Campeones 12 (720p)", "link": "df7d145fcaf0566db4098d2f10236185d92bc9fd"}
 {"name": "M. Liga Campeones 13 (720p)", "link": "bdfe9ebe62d690c1b13eef4346d72e618cfbe804"}
-{"name": "DZN F1", "link": "d6281d4e6310269b416180442a470d23a4a99dc9"}
+{"name": "DZN F1", "link": "073d33a5e5270399154bb251fcc95f99c0741264"}
+{"name": "DZN F1", "link": "caacce193d67231641e4da54aed2333eaee16fd0"}
 {"name": "DZN F1 4k", "link": "6b94479c24898700089e6b87d28a3ccc72dc4041"}
+{"name": "F1 TV", "link": "596887e47123169410249d867e4cbf1e6d316248"}
+{"name": "F1 TV (720p)", "link": "821eb83594bac4da4f2877f88e56d05400bb5d1b"}
 {"name": "F1 TV", "link": "be9686ae7cb95f68821c0c5b8e416dbea6188305"}
 {"name": "Super Sport Motosport (Eng)", "link": "a2043bb6885dcdb46bb88a647825a45b31f31d5b"}
 {"name": "DAZN 1", "link": "d5b2c6b940cf3df5e8f9dc6f000f0ea23a10b151"}
@@ -63,8 +64,6 @@
 {"name": "M. Deportes 5", "link": "fcc0fd75bf1dba40b108fcf0d3514e0e549bfbac"}
 {"name": "M. Deportes 6", "link": "cc5782d37ae6b6e0bab396dd64074982d0879046"}
 {"name": "M. Deportes 7", "link": "070f82d6443a52962d6a2ed9954c979b29404932"}
-{"name": "EuroSport 1", "link": "5e4cd48c79f991fcbee2de8b9d30c4b16de3b952"}
-{"name": "M. Golf", "link": "4f945b0ba4206fa2676b61e9eaa465ac3dcc8122"}
 {"name": "NBA TV (Eng)", "link": "e72d03fb9694164317260f684470be9ab781ed95"}
 {"name": "ESPN (Esp)", "link": "8677d339ecddd75165c0015025f598b6215974cf"}
 {"name": "Sky Sport+ (Eng)", "link": "d317a003e8047da2c36a2a2bb2289578c9a3b79c"}
@@ -89,7 +88,7 @@
 {"name": "Ziggo Sports (Ned)", "link": "fcd7621df513f600652b4813d5d8fd1daed60058"}
 {"name": "Ziggo Sports 2 (Ned)", "link": "868a6187d6aeec65ded84bd777814c9f7b7a9027"}
 {"name": "Eleven Sport 1 4K (Pol)", "link": "7ac2d74ef6df9d15012992d7e0e635a95f58c652"}
-{"name": "Eleven Sport 1 4K (Pol)", "link": "35e56fe4a3b23e4e31b7a4ee21562227fbd05624"}
+{"name": "Eleven Sport 1 4K NOOO (Pol)", "link": "35e56fe4a3b23e4e31b7a4ee21562227fbd05624"}
 {"name": "Eleven Sport 1 (Pol)", "link": "14407b00d454cb7dc0d70aa26e8bbc554f457f00"}
 {"name": "Eleven Sport 1 (Pol)", "link": "35e56fe4a3b23e4e31b7a4ee21562227fbd05624"}
 {"name": "Setanta Sports 2 (Rus)", "link": "f6d68cfa8694f814983f2a5757f4e0c4964b880c"}

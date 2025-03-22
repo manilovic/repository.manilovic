@@ -1,19 +1,18 @@
 {"name": "LaLiga TV Bar MultiAudio", "link": "94d34491106e00394835c8cb68aa94481339b53f"}
-{"name": "LaLiga TV Bar trompicones", "link": "608b0faf7d3d25f6fe5dba13d5e4b4142949990e"}
 {"name": "LaLiga TV Bar (720p)", "link": "954b2cb573313690f2a6d6a2e70102fb49ace952"}
 {"name": "LaLiga TV Bar (720p)", "link": "5834660ff7ae10f0514dc23c241c054dc0272d01"}
 {"name": "DAZN LaLiga MultiAudio", "link": "110d441ddc9713a7452588770d2bc85504672f47"}
 {"name": "DAZN LaLiga 2", "link": "97ba38d47680954be40e48bd8f43e17222fefecb"}
+{"name": "DAZN LaLiga 2", "link": "83c6c4942d69f4aa324aa746c5d7dbfd7d1572b3"}
+{"name": "M. LaLiga (4K)", "link": "d15a0eaf825b5f8f94259d5209688a7e97e6acde"}
+{"name": "M. LaLiga (4K)", "link": "cc9b7f5fe416069a2110da0909b0f915043c468b"}
 {"name": "M. LaLiga MultiAudio", "link": "d3de78aebe544611a2347f54d5796bd87f16c92d"}
-{"name": "M. LaLiga MultiAudio (NO-24h)", "link": "6d05b31e5e8fdae312fbd57897363a7b10ddb163"}
 {"name": "M. LaLiga Multiaudio (720p)", "link": "f5a769b1d4d97673dcaae415bf197706a8056428"}
-{"name": "M. LaLiga", "link": "d15a0eaf825b5f8f94259d5209688a7e97e6acde"}
-{"name": "M. LaLiga", "link": "cc9b7f5fe416069a2110da0909b0f915043c468b"}
 {"name": "M. LaLiga", "link": "b308f69384b9be8c5cfdcb45cfcc3d595b0cbaa1"}
 {"name": "M. LaLiga", "link": "7fc274f1bccb3d755c8e0760459bd81056eb998f"}
 {"name": "M. LaLiga (720p)", "link": "1bc437bce57b4b0450f6d1f8d818b7e97000745e"}
-{"name": "M. LaLiga 2", "link": "83c6c4942d69f4aa324aa746c5d7dbfd7d1572b3"}
 {"name": "M. LaLiga 2 (720p)", "link": "f31a586422c9244196c810c84b6c85da350318a5"}
+{"name": "LaLiga Hypermotion", "link": "6d05b31e5e8fdae312fbd57897363a7b10ddb163"}
 {"name": "LaLiga Hypermotion", "link": "b2706a7ffbea236a3b398139a3a606ada664c0eb"}
 {"name": "LaLiga Hypermotion 2", "link": "0cfdfde1b70623b8c210b0f7301be2a87456481d"}
 {"name": "RFEF (NO-24h)", "link": "c1ee6e1e0ef5928d8261f855c417de21794f437d"}
@@ -25,6 +24,7 @@
 {"name": "M. Liga Campeones (NO-24h)", "link": "0a26e20f39845e928411e09a124374fccb6e1478"}
 {"name": "M. Liga Campeones 02", "link": "c070cdb701fc46bb79d17568d99fc64620443d63"}
 {"name": "M. Liga Campeones 03", "link": "3618edda333dad5374ac2c801f5f14483934b97d"}
+{"name": "M. Liga Campeones 03", "link": "8e65f92af1de567f0af83562c5a14a3db6dc8ac8"}
 {"name": "M. Liga Campeones 04", "link": "65a18a6bd83918a9586b673fec12405aaf4e9f7d"}
 {"name": "M. Liga Campeones 05", "link": "11744c25a594e17d587ed0871fe40ff21b4bd1e0"}
 {"name": "M. Liga Campeones 06 (720p)", "link": "fdda1f0dd8c33fbdc5a66ab98e291f570cae67cd"}
@@ -35,12 +35,8 @@
 {"name": "M. Liga Campeones 11 (720p)", "link": "a12a16f74cf12799d4475ae867dc61eb60e1ba2e"}
 {"name": "M. Liga Campeones 12 (720p)", "link": "df7d145fcaf0566db4098d2f10236185d92bc9fd"}
 {"name": "M. Liga Campeones 13 (720p)", "link": "bdfe9ebe62d690c1b13eef4346d72e618cfbe804"}
-{"name": "DZN F1", "link": "073d33a5e5270399154bb251fcc95f99c0741264"}
-{"name": "DZN F1", "link": "caacce193d67231641e4da54aed2333eaee16fd0"}
-{"name": "DZN F1 4k", "link": "6b94479c24898700089e6b87d28a3ccc72dc4041"}
-{"name": "F1 TV", "link": "596887e47123169410249d867e4cbf1e6d316248"}
-{"name": "F1 TV (720p)", "link": "821eb83594bac4da4f2877f88e56d05400bb5d1b"}
-{"name": "F1 TV", "link": "be9686ae7cb95f68821c0c5b8e416dbea6188305"}
+{"name": "DZN F1", "link": "d6281d4e6310269b416180442a470d23a4a99dc9"}
+{"name": "DAZN 1 (720p)", "link": "35c7f0c966ecde3390f4510bb4caded40018c07a"}
 {"name": "Super Sport Motosport (Eng)", "link": "a2043bb6885dcdb46bb88a647825a45b31f31d5b"}
 {"name": "DAZN 1", "link": "d5b2c6b940cf3df5e8f9dc6f000f0ea23a10b151"}
 {"name": "DAZN 1 (NO-24h)", "link": "c6ea3537adee1384c6420c53beaaa1e364e2ff59"}
@@ -52,9 +48,9 @@
 {"name": "DAZN 4", "link": "4e83f23945ab3e43982045f88ec31daaa4683102"}
 {"name": "Movistar +", "link": "56ac8e227d526e722624675ccdd91b0cc850582f"}
 {"name": "Movistar +", "link": "bf270b6486daf3a2aa54bc027fd7cb02401a447a"}
-{"name": "Movistar + 4K ????", "link": "7138311a683384297b7ba47020badf454a4376aa"}
+{"name": "Movistar + (4K) ????", "link": "7138311a683384297b7ba47020badf454a4376aa"}
+{"name": "Vamos", "link": "12ba546d229bc39f01c3c18988a034b215fe6adb"}
 {"name": "Vamos (720p)", "link": "d03c13b6723f66155d7a0df3692a3b073fe630f2"}
-{"name": "Vamos (720p)", "link": "12ba546d229bc39f01c3c18988a034b215fe6adb"}
 {"name": "M. Deportes 1", "link": "55d4602cb22b0d8a33c10c2c2f42dae64a9e8895"}
 {"name": "M. Deportes 1 (NO-24h)", "link": "acb510858f34c3c6fd5f79395b031abd6885c2b3"}
 {"name": "M. Deportes 1 (NO-24h - 720p)", "link": "3a74d9869b13e763476800740c6625e715a39879"}
@@ -75,6 +71,7 @@
 {"name": "DAZN 1 (Ger)", "link": "897e73c9d578848f596585314ecb9ae067c0e229"}
 {"name": "DAZN 1 Bar (Ger)", "link": "897e73c9d578848f596585314ecb9ae067c0e229"}
 {"name": "UFC (Eng)", "link": "626fc7cf70680d1d77b4b5293be94f63c910ee92"}
+{"name": "MAX UFC PPV", "link": "405f4975c759816fbc6606eeb990666f1853dfe2"}
 {"name": "Polsat Sports Fight (Pol)", "link": "9e7fe279f421b734a8af9e68320955fd16f80b4b"}
 {"name": "TNT Sports 1 (720p - Eng) ", "link": "8a99150eb24e6b22d3944381d071d91d23dc94e0"}
 {"name": "TNT Sports 2 (720p - Eng) ", "link": "96557b62d2888c7f08db3721f45f05ab6a56ee1f"}
@@ -86,9 +83,8 @@
 {"name": "Fox Sports Premium (Eng)", "link": "6994af284ecab2996f9b140ef44b8da8bfee0006"}
 {"name": "Premier Sports 2 (Eng)", "link": "4903ca695edb64bc72ae29eb85a5333ba0139537"}
 {"name": "Ziggo Sports (Ned)", "link": "fcd7621df513f600652b4813d5d8fd1daed60058"}
-{"name": "Ziggo Sports 2 (Ned)", "link": "868a6187d6aeec65ded84bd777814c9f7b7a9027"}
-{"name": "Eleven Sport 1 4K (Pol)", "link": "7ac2d74ef6df9d15012992d7e0e635a95f58c652"}
-{"name": "Eleven Sport 1 4K NOOO (Pol)", "link": "35e56fe4a3b23e4e31b7a4ee21562227fbd05624"}
+{"name": "Ziggo Sports 2 (720p - Ned)", "link": "868a6187d6aeec65ded84bd777814c9f7b7a9027"}
+{"name": "Eleven Sport 1 (4K - Pol)", "link": "7ac2d74ef6df9d15012992d7e0e635a95f58c652"}
 {"name": "Eleven Sport 1 (Pol)", "link": "14407b00d454cb7dc0d70aa26e8bbc554f457f00"}
 {"name": "Eleven Sport 1 (Pol)", "link": "35e56fe4a3b23e4e31b7a4ee21562227fbd05624"}
 {"name": "Setanta Sports 2 (Rus)", "link": "f6d68cfa8694f814983f2a5757f4e0c4964b880c"}

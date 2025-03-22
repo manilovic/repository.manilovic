@@ -118,7 +118,7 @@ def arrancar_acestream():
             notificacion("Arrancando Acestream Ubuntu SNAP")
             debug("JM  Arrancando Acestream Ubuntu SNAP")
         else:
-            xbmcgui.Dialog().ok("Error", "Por favor, instale Acestreamplayer mediante snap antes de continuar.")
+            ### xbmcgui.Dialog().ok("Error", "Por favor, instale Acestreamplayer mediante snap antes de continuar.")
             return
      
     return(debug("JM  Arrancado"))

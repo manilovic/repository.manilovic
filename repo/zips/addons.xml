@@ -73,7 +73,7 @@
         <forum>https://t.me/KodiManiac
         https://t.me/acestream_spanish</forum>
     </extension>
-</addon><addon id="script.module.juanma" name="Manilovic" version="7.71" provider-name="Manilovic">
+</addon><addon id="script.module.juanma" name="Manilovic" version="7.72" provider-name="Manilovic">
 	<requires>
 		<import addon="script.module.horus" />
 		<import addon="script.module.six" />

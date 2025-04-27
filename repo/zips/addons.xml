@@ -73,7 +73,7 @@
         <forum>https://t.me/KodiManiac
         https://t.me/acestream_spanish</forum>
     </extension>
-</addon><addon id="script.module.juanma" name="Manilovic" version="7.72" provider-name="Manilovic">
+</addon><addon id="script.module.juanma" name="Manilovic" version="8.00" provider-name="Manilovic">
 	<requires>
 		<import addon="script.module.horus" />
 		<import addon="script.module.six" />
@@ -90,9 +90,7 @@
 			<fanart>resources/logos/therocklogo.jpg</fanart>
 		</assets>
 		<news>
-			-Nuevos Favoritos (sobreescribe)
-			-Nuevo setting links malos
-			-Solo cache en ubuntu
+			-Nuevos buscador acestream
 		</news>
 	</extension>
 </addon><addon id="script.module.six" name="six" version="1.15.0" provider-name="gutworth">

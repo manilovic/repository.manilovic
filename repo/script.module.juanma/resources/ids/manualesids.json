@@ -1,6 +1,3 @@
-{"name": "LaLiga TV Bar MultiAudio", "link": "94d34491106e00394835c8cb68aa94481339b53f"}
-{"name": "LaLiga TV Bar (720p)", "link": "954b2cb573313690f2a6d6a2e70102fb49ace952"}
-{"name": "LaLiga TV Bar (720p)", "link": "5834660ff7ae10f0514dc23c241c054dc0272d01"}
 {"name": "DAZN LaLiga MultiAudio", "link": "110d441ddc9713a7452588770d2bc85504672f47"}
 {"name": "DAZN LaLiga 2", "link": "97ba38d47680954be40e48bd8f43e17222fefecb"}
 {"name": "DAZN LaLiga 2", "link": "83c6c4942d69f4aa324aa746c5d7dbfd7d1572b3"}
@@ -61,6 +58,7 @@
 {"name": "M. Deportes 5", "link": "fcc0fd75bf1dba40b108fcf0d3514e0e549bfbac"}
 {"name": "M. Deportes 6", "link": "cc5782d37ae6b6e0bab396dd64074982d0879046"}
 {"name": "M. Deportes 7", "link": "070f82d6443a52962d6a2ed9954c979b29404932"}
+{"name": "M. Golf", "link": "872608e734992db636eb79426802cd08f4029afb"}
 {"name": "NBA TV (Eng)", "link": "e72d03fb9694164317260f684470be9ab781ed95"}
 {"name": "ESPN (Esp)", "link": "8677d339ecddd75165c0015025f598b6215974cf"}
 {"name": "Sky Sport+ (Eng)", "link": "d317a003e8047da2c36a2a2bb2289578c9a3b79c"}
@@ -93,3 +91,10 @@
 {"name": "Match! Football 1 (Rus)", "link": "b28db77c5084da7993395d77df96c30bb134f0a9"}
 {"name": "Match! Football 2 (Rus)", "link": "ffbf8c687c788d9a1a7c651e24802ee773ff3f04"}
 {"name": "Match! Football 3 (Rus)", "link": "b6baa046075d82da300fc1b16de96067a8b9540e"}
+{"name": "ESPN HD (Usa)", "link": "4b4907de51ec11087d4bed5876f2a0c68264f442"}
+{"name": "ESPN 2 (Usa)", "link": "664eb5fe460b96941aed633959a845b185cd8394"}
+{"name": "BT Sports (Eng)", "link": "fc5089d8e1519872fdf951779ccbca913acc9bce"}
+{"name": "Fox Sports 1 (Usa)", "link": "c9c062941fbecb16ce29437f346ea7177d720898"}
+{"name": "Fox Sports 2 (Usa)", "link": "cba8d369eac629b577750edb90370cd1c5fb03b7"}
+{"link": "efc60cfe5e3a349baa02bcc49f6647c21a9c3c5b", "name": "BT Sport 1 [UK]"}
+{"link": "acestream://efc60cfe5e3a349baa02bcc49f6647c21a9c3c5b", "name": "BT Sport 1 [UK]"}

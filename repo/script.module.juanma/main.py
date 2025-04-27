@@ -31,16 +31,22 @@ ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.j
 
 debug("JM favoritos: " + ruta_favoritos)
 
-if xbmcvfs.exists(ruta_favoritos):                            # Verifica si existe la ruta de origen
-    debug("JM Se encontró el archivo favoritos")
+with open(ruta_favoritos, 'w') as file:
+    file.write("")  # Crear un archivo vacío
+shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
+debug ("JM Copiado favoritos de JM")
 
-else:
-    debug ("JM No se encontró el archivo favoritos")
-    with open(ruta_favoritos, 'w') as file:
-        file.write("")  # Crear un archivo vacío
-    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
-    debug ("JM Copiado favoritos de JM")
- 
+#############################
+#if xbmcvfs.exists(ruta_favoritos):                            # Verifica si existe la ruta de origen
+#    debug("JM Se encontró el archivo favoritos")
+
+#else:
+#    debug ("JM No se encontró el archivo favoritos")
+#    with open(ruta_favoritos, 'w') as file:
+#        file.write("")  # Crear un archivo vacío
+#    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
+#    debug ("JM Copiado favoritos de JM")
+############################# 
   
 
 
@@ -58,8 +64,8 @@ if str(sys.argv[2]) == '?parar_acestream_2':
 if str(sys.argv[2]) == '?limpiar_cache_setting':
     limpiar_cache_setting()
     
-if str(sys.argv[2]) == '?actualizar_links':
-    actualizar_links_setting()
+if str(sys.argv[2]) == '?actualizar_links_acesearch':
+    actualizar_links_acesearch()
     
 if str(sys.argv[2]) == '?todos_links_setting':
     todos_links_setting()
@@ -75,6 +81,8 @@ if str(sys.argv[2]) == '?sobreescribir_favoritos_setting':
 
 if str(sys.argv[2]) == '?links_manuales_setting':
     links_manuales_setting()
+    
+    
 
 
 

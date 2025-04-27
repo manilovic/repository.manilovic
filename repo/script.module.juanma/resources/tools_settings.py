@@ -165,83 +165,46 @@ def todos_malos_setting():
     debug ("JM  Links actualizados")
 
 
-def actualizar_links_setting():
+def actualizar_links_acesearch():
 
-    notificacion("Actualizando lista pequeña links....")
-    debug ("JM  Actualizando lista pequeña links....")
+    notificacion("Buscando acestreamsearch links....")
+    debug ("JM Buscando acestreamsearch links....")
     
-    canales = lista_elementos()
     
+    teclado = xbmcgui.Dialog()
+    palabra = teclado.input("¿Qué canal quieres buscar en acestream search?", type=xbmcgui.INPUT_ALPHANUM)
+      
+    if not palabra:
+       palabra = "sports"  # Valor por defecto
+
+    
+    #palabra= palabra_buscador()
+    debug (f"JM Buscando {palabra}")
+    notificacion (f'JM Buscando "{palabra}"....')
+
+  
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     file_ids = open(ruta_ids, mode='w')
 
-    url = "https://www.robertofreijo.com/acestream-ids/"
+    url = f"http://192.168.1.48:5000/buscar?q={palabra}"
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
 
     request = urllib.request.Request(url, headers=headers)     # Crear la solicitud con los encabezados
     response = urllib.request.urlopen(request)
     html = response.read().decode('utf-8')
+    
+    debug (f"JM canales {html}")
+    
+    data = json.loads(html)  # Decodificar el JSON
+    debug (f"JM loads {data}")
+    
+    for item in data:
+       debug (f"JM canales {item}")
+       
+       # Convertir el diccionario en un string JSON y escribirlo en el archivo
+       json_data = json.dumps(item, ensure_ascii=False)
+       file_ids.write(json_data + "\n")     
 
-    busqueda = re.finditer("•", html)                         # Buscar todas las posiciones de "•"
- 
-    result = []
-
-    for match in busqueda:
-        start = match.start()                                                  # Posición de inicio de "•"
-        end = html.find('">', start)                                          # Buscar el final después de "•"  
-        resultado = html[start:end]
-        debug(f"JM |{resultado}|")
-        
-        
-        x = "•"
-        start = resultado.find(x)
-        start = start +1
-        end =  resultado.find("<br")
-        name = resultado[start:end]
-        name = name.strip()
-        name = name.lstrip('#')
-
-        
-        for canal in canales:
-            if canal in name:
-                x = '<a href="'
-                start = resultado.find(x)
-                start = start +9
-                end = start +28
-                tiny = resultado[start:end] 
-                
-                partes = tiny.split("https://tinyurl.com/")
-                preview_url = f"https://tinyurl.com/preview/{partes[1]}"
-
-                ############
-                
-                request2 = urllib.request.Request(preview_url, headers=headers)     # Crear la solicitud con los encabezados
-                response2 = urllib.request.urlopen(request2)
-                html2 = response2.read().decode('utf-8')
-                
-                busqueda2 = re.finditer("acestream://", html2)
-                
-                for match2 in busqueda2:
-                    start = match2.start() # Posición de inicio de "•"
-                    start = start +12
-                    end = html2.find('"', start)                                          # Buscar el final después de "•"  
-                    ace_link = html2[start:end]
-                    debug(f"JM |{ace_link}|")
-                    break       
-                ###########
-
-                items = {"name": name, "link": ace_link}
-                result.append(items)
-
-
-
-    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name"
-   
-
-    for item in result_sorted:    # Imprimir los elementos ordenados
-       json_data = json.dumps(item)                                           # Convertir el diccionario a formato JSON
-       file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
-        
     file_ids.close()
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")

@@ -11,6 +11,13 @@ def debug(message):
     log_enabled = getsetting("debug")
     if log_enabled == "true":
         xbmc.log(message, xbmc.LOGINFO)
+        
+def palabra_buscador():
+
+    palabra_busqueda = getsetting("palabra_busqueda")
+    debug("JM tools" + palabra_busqueda)
+    
+    return(palabra_busqueda)
 
 
 def lista_elementos():

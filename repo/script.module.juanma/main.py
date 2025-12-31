@@ -81,6 +81,11 @@ if str(sys.argv[2]) == '?sobreescribir_favoritos_setting':
 
 if str(sys.argv[2]) == '?links_manuales_setting':
     links_manuales_setting()
+
+if str(sys.argv[2]) == '?actualizar_links_shickat':
+    actualizar_links_shickat()
+    
+    
     
     
 
@@ -116,7 +121,7 @@ if name is None:
     xbmcplugin.setContent(addon_handle, 'movies')
     listing = []
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    input_file = open(ruta_ids, mode='r')
+    input_file = open(ruta_ids, encoding="utf-8", mode='r')
 
     for line in input_file:
         y = json.loads(line)         #  {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"}

@@ -109,7 +109,7 @@ def todos_links_setting():
     ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     idsmanuales = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids/manualesids.json")
     
-    with open(idsmanuales,'r') as file:
+    with open(idsmanuales, encoding="utf-8", mode="r") as file:
        lines = file.readlines()
     
     for line in lines:
@@ -118,11 +118,13 @@ def todos_links_setting():
        debug (f"JM canales {data}")
                 
     
-    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name" 
+    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name"
     
-    with open(ids, mode='w') as file_ids:
+    
+    with open(ids, encoding="utf-8", mode='w') as file_ids:
        for item in result:                                                # Imprimir los elementos ordenados
-          json_data = json.dumps(item)                                            # Convertir el diccionario a formato JSON
+          json_data = json.dumps(item)# Convertir el diccionario a formato JSON
+          print(json_data)
           file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
         
     
@@ -143,7 +145,7 @@ def todos_malos_setting():
     ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     idsmanuales = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids/malos_ids.json")
     
-    with open(idsmanuales,'r') as file:
+    with open(idsmanuales, encoding="utf-8", mode="r") as file:
        lines = file.readlines()
     
     for line in lines:
@@ -153,8 +155,8 @@ def todos_malos_setting():
                 
     
     result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name" 
-    
-    with open(ids, mode='w') as file_ids:
+
+    with open(ids, encoding="utf-8", mode='w') as file_ids:
        for item in result:                                                # Imprimir los elementos ordenados
           json_data = json.dumps(item)                                            # Convertir el diccionario a formato JSON
           file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
@@ -184,7 +186,8 @@ def actualizar_links_acesearch():
 
   
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    file_ids = open(ruta_ids, mode='w')
+    file_ids = open(ruta_ids, encoding="utf-8", mode='w')
+
 
     url = f"http://192.168.1.48:5000/buscar?q={palabra}"
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
@@ -220,12 +223,13 @@ def links_manuales_setting():
     debug (f"JM canales {canales}")
     
     manuales_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids/manualesids.json")
-    with open(manuales_ids, 'r') as file:
+    with open(manuales_ids, encoding="utf-8", mode="r") as file:
        lines = file.readlines()
     
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    file_ids = open(ruta_ids, mode='w')
-    
+    file_ids = open(ruta_ids, encoding="utf-8", mode='w')
+
+
     result = []
     
     for canal in canales:
@@ -244,7 +248,7 @@ def links_manuales_setting():
        json_data = json.dumps(item)                                           # Convertir el diccionario a formato JSON
        file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
         
-    #file_ids.close()
+    file_ids.close()
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
 
@@ -260,7 +264,7 @@ def sobreescribir_favoritos_setting():
     debug ("JM Sobreescribiendo archivo favoritos")
     notificacion(" Sobreescribiendo archivo favoritos")
     
-    with open(ruta_favoritos, 'w') as file:
+    with open(ruta_favoritos, encoding="utf-8", mode="w") as file:
         file.write("")  # Crear un archivo vacío
     shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
     debug ("JM Copiado favoritos de JM")
@@ -304,3 +308,40 @@ def actualizar_favoritos_setting():
     notificacion("Favoritos actualizado")
     notificacion("Reiniciar Kodi para que surtan efecto los cambios")
     debug ("JM Favoritos actualizados")
+
+
+def actualizar_links_shickat():
+
+    notificacion("Buscando shickcat links....")
+    debug ("JM Buscando shickat links....")
+    
+    
+    ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
+    file_ids = open(ruta_ids, encoding="utf-8", mode='w')
+
+    url = f"https://shickat.me/"
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
+
+    request = urllib.request.Request(url, headers=headers)     # Crear la solicitud con los encabezados
+    response = urllib.request.urlopen(request)
+    html = response.read().decode('utf-8')
+
+    #Regex para extraer nombre y href
+    resultados = re.findall(r'<article class="canal-card".*?data-titulo=".*?">.*?<span class="canal-nombre">(.*?)</span>.*?<a class="acestream-link" href="(acestream://.*?)"', html, re.DOTALL)
+    
+    canales_ordenados = sorted(resultados, key=lambda x: x[0])
+
+    for nombre, link in canales_ordenados:
+        canales_dict = {"name": nombre.strip(), "link": link.replace("acestream://", "").strip()}
+        debug(f"JM {canales_dict}")
+        json_data = json.dumps(canales_dict)                                           # Convertir el diccionario a formato JSON
+        file_ids.write(json_data + "\n")
+
+    
+    file_ids.close()
+
+    notificacion("Links actualizados")
+    debug ("JM  Links actualizados")
+
+
+

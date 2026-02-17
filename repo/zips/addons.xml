@@ -73,7 +73,7 @@
         <forum>https://t.me/KodiManiac
         https://t.me/acestream_spanish</forum>
     </extension>
-</addon><addon id="script.module.juanma" name="Manilovic" version="9,22" provider-name="Manilovic">
+</addon><addon id="script.module.juanma" name="Manilovic" version="9.3" provider-name="Manilovic">
 	<requires>
 		<import addon="script.module.horus" />
 		<import addon="script.module.six" />
@@ -91,7 +91,6 @@
 		</assets>
 		<news>
 			-Nuevos Links
-			-nuevos enlaces "https://shickat.me/"
 		</news>
 	</extension>
 </addon><addon id="script.module.six" name="six" version="1.15.0" provider-name="gutworth">

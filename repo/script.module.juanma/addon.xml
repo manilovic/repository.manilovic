@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.module.juanma" name="Manilovic" version="9,22" provider-name="Manilovic">
+<addon id="script.module.juanma" name="Manilovic" version="9.3" provider-name="Manilovic">
 	<requires>
 		<import addon="script.module.horus" />
 		<import addon="script.module.six" />
@@ -17,7 +17,6 @@
 		</assets>
 		<news>
 			-Nuevos Links
-			-nuevos enlaces "https://shickat.me/"
 		</news>
 	</extension>
 </addon>

@@ -7,9 +7,6 @@
 		<setting id="stop_acestream_2" label="Parada Forzosa Acestream AHORA" type="action"  action="RunPlugin(plugin://script.module.juanma?parar_acestream_2)"  visible="!System.Platform.Android" option="close"/>
 		<setting label="Horus install acestream" type="action"  action="RunPlugin(plugin://script.module.horus?action=install_acestream)" visible="!System.Platform.Android" option="close"/>
 	</category>
-	<category label="Acestream search">
-		<setting label="Buscador Acestream search" type="action" action="RunPlugin(plugin://script.module.juanma?actualizar_links_acesearch)" option="close"/>			
-	</category>
 	<category label="Actualizar Canales">
 		<setting label="Actualizar Lista Completa de canales almacenados" type="action"  action="RunPlugin(plugin://script.module.juanma?todos_links_setting)" option="close"/>
 		<setting label="Actualizar Lista Completa de canales incorrectos almacenados" type="action" action="RunPlugin(plugin://script.module.juanma?todos_malos_setting)" option="close"/>				

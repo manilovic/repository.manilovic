@@ -8,6 +8,7 @@ import urllib.request
 import re
 import json
 import shutil
+import requests
 
 
 from resources.tools import *
@@ -221,38 +222,31 @@ def links_manuales_setting():
     
     canales = lista_elementos()
     debug (f"JM canales {canales}")
-    
-    manuales_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids/manualesids.json")
-    with open(manuales_ids, encoding="utf-8", mode="r") as file:
-       lines = file.readlines()
-    
+  
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     file_ids = open(ruta_ids, encoding="utf-8", mode='w')
 
-
-    result = []
-    
     for canal in canales:
-       debug (f"JM {canal}")
-       
-       for line in lines:
-          if canal in line:
-            data = json.loads(line)
-            result.append(data)
-            debug (f"JM canales {data}")
-                
-    
-    #result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name" 
-    
-    for item in result:    # Imprimir los elementos ordenados
-       json_data = json.dumps(item)                                           # Convertir el diccionario a formato JSON
-       file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
-        
+        debug (f"JM {canal}")
+
+        url = f"http://manilovic.ddns.net:9200/acestreams/_search" 
+        payload = {"size": 1000,"query": {"match": {"name": canal}}}
+        debug(f"{url}")
+        response = requests.get(url, json=payload)
+        result_json = response.json()
+
+        hits = result_json["hits"]["hits"]
+
+        for hit in hits:
+            #debug (f"JM {hit}")
+            source = hit["_source"]
+            debug(f"JM {source}")
+            json.dump(source, file_ids, ensure_ascii=False)
+            file_ids.write("\n")
+
     file_ids.close()
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
-
-
 
         
 def sobreescribir_favoritos_setting():

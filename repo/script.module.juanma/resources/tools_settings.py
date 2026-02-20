@@ -8,7 +8,6 @@ import urllib.request
 import re
 import json
 import shutil
-import requests
 
 
 from resources.tools import *
@@ -214,41 +213,43 @@ def actualizar_links_acesearch():
     debug ("JM  Links actualizados")
 
 
-
 def links_manuales_setting():
 
     notificacion("Actualizando lista manual...")
-    debug ("JM  Actualizando lista manual...")
-    
+    debug("JM  Actualizando lista manual...")
+
     canales = lista_elementos()
-    debug (f"JM canales {canales}")
-  
+    debug(f"JM canales {canales}")
+
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    file_ids = open(ruta_ids, encoding="utf-8", mode='w')
 
-    for canal in canales:
-        debug (f"JM {canal}")
+    with open(ruta_ids, mode="w", encoding="utf-8") as file_ids:
 
-        url = f"http://manilovic.ddns.net:9200/acestreams/_search" 
-        payload = {"size": 1000,"query": {"match": {"name": canal}}}
-        debug(f"{url}")
-        response = requests.get(url, json=payload)
-        result_json = response.json()
+        for canal in canales:
+            debug(f"JM buscando {canal}")
 
-        hits = result_json["hits"]["hits"]
+            url = "http://manilovic.ddns.net:9200/acestreams/_search"
+            payload = {"size": 1000,"query": {"match": {"name": canal }}}
 
-        for hit in hits:
-            #debug (f"JM {hit}")
-            source = hit["_source"]
-            debug(f"JM {source}")
-            json.dump(source, file_ids, ensure_ascii=False)
-            file_ids.write("\n")
+            req = urllib.request.Request(url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
+
+            with urllib.request.urlopen(req) as response:
+                result_json = json.loads(response.read().decode("utf-8"))
+
+                hits = result_json.get("hits", {}).get("hits", [])
+
+                for hit in hits:
+                    source = hit.get("_source", {})
+                    debug(f"JM guardando {source}")
+
+                    json.dump(source, file_ids, ensure_ascii=False)
+                    file_ids.write("\n")
 
     file_ids.close()
     notificacion("Links actualizados")
-    debug ("JM  Links actualizados")
+    debug("JM  Links actualizados")
 
-        
+
 def sobreescribir_favoritos_setting():
 
     ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")

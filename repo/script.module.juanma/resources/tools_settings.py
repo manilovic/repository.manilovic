@@ -229,7 +229,7 @@ def links_manuales_setting():
             debug(f"JM buscando {canal}")
 
             url = "http://manilovic.ddns.net:9200/acestreams/_search"
-            payload = {"size": 1000,"query": {"match": {"name": canal }}}
+            payload = {"size": 1000,"query": {"match_phrase": {"name": canal }}}
 
             req = urllib.request.Request(url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
 

@@ -25,24 +25,24 @@ def lista_elementos():
     Dazn_Mov_Liga = getsetting("Dazn_Mov_Liga")
     Liga_campeones = getsetting("Liga_campeones")
     F1 = getsetting("F1")
-    Motogp = getsetting("Motogp")
+    DAZN = getsetting("DAZN")
     Deportes = getsetting("Deportes")
     NBA = getsetting("NBA_TV")
     Sky = getsetting("Sky")
     UFC = getsetting("UFC")
     Golf = getsetting("Golf")
-    Extranjeras = getsetting("Extranjeras")
+    #Extranjeras = getsetting("Extranjeras")
 
                 
     canales = []
 
     if Dazn_Mov_Liga == "true":
-        canales += ["LaLiga"]
+        canales += ["LaLiga", "La Liga"]
     if Liga_campeones == "true":
         canales += ["Campeones"]
     if F1 == "true":
         canales += ["F1"]
-    if Motogp == "true":
+    if DAZN == "true":
         canales += ["DAZN"]          
     if Deportes == "true":
         canales += ["Deportes"]
@@ -55,14 +55,11 @@ def lista_elementos():
     if Golf == "true":
         canales += ["Golf"]
         
-    if Extranjeras == "true":
-        patron = r"\([A-Za-z]{3}\)"
-        for canal in canales:
-          if re.search(patron, canal):
-              canales += [canal]
-
-
- 
+    #if Extranjeras == "true":
+    #    patron = r"\([A-Za-z]{3}\)"
+    #    for canal in canales:
+    #      if re.search(patron, canal):
+    #          canales += [canal]
 
     debug("JM" + str(canales))
     return(canales)

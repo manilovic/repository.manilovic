@@ -116,79 +116,76 @@ name = args.get('name', None)
 
 ### MENU canales
 
+
 if name is None:
 
     xbmcplugin.setContent(addon_handle, 'movies')
     listing = []
+
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    input_file = open(ruta_ids, encoding="utf-8", mode='r')
+    
+    with open(ruta_ids, encoding="utf-8", mode='r') as input_file:
 
-    for line in input_file:
-        y = json.loads(line)         #  {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"}
-        url = build_url(y)            
-        titulo = (y["name"])                            
-        list_item = xbmcgui.ListItem(titulo)
-        info = list_item.getVideoInfoTag()
-        info.setTitle(titulo)
-        ####
-        if  "DAZN F1" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/F1_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
-        
-        if  "Bar" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/LaligaTvBar.png")
-           list_item.setArt({'thumb': thumb})
-           
-        if  "DAZN LaLiga" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_liga_logo_v2.png")
-           list_item.setArt({'thumb': thumb})     
-        
-        if  "M. LaLiga" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Mov_liga_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
-           
-        if  "Campeones" in titulo:                                                       
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Campeones_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
+        for line in input_file:
+            y = json.loads(line)  # {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"}
 
-        if  "Deportes" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Deportes_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
-           
-        if  "DAZN 1" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Motogp_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
+            url = build_url(y)            
+            titulo = y["name"]
 
-        if  "DAZN 2" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_2_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
+            # ===== Colores según running =====
+            estado = y.get("running")
+            if str(estado).lower() == "true":
+                titulo = f"[COLOR lime]{titulo}[/COLOR]"
+            elif str(estado).lower() == "false":
+                titulo = f"[COLOR red]{titulo}[/COLOR]"
 
-        if  "DAZN 3" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_3_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
-  
-        if  "M. Golf" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Golf_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
-         
-        if  "EuroSport 1" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_1_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
-                     
-        if  "EuroSport 2" in titulo:
-           thumb= xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_2_logo_v2.png")
-           list_item.setArt({'thumb': thumb})
-                          
-        
-        ####
-        list_item.setInfo('video', info)
-        list_item.setProperty('IsPlayable', 'false')  
-        is_folder = False
-        listing.append((url, list_item, is_folder))
+            # ===== Crear ListItem =====
+            list_item = xbmcgui.ListItem(titulo)
+            info = list_item.getVideoInfoTag()
+            info.setTitle(titulo)
 
+            # ===== Logos según nombre =====
+            if "DAZN F1" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/F1_logo_v2.png")
+            elif "Bar" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/LaligaTvBar.png")
+            elif "DAZN LaLiga" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_liga_logo_v2.png")
+            elif "M. LaLiga" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Mov_liga_logo_v2.png")
+            elif "Campeones" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Campeones_logo_v2.png")
+            elif "Deportes" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Deportes_logo_v2.png")
+            elif "DAZN 1" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Motogp_logo_v2.png")
+            elif "DAZN 2" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_2_logo_v2.png")
+            elif "DAZN 3" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_3_logo_v2.png")
+            elif "M. Golf" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Golf_logo_v2.png")
+            elif "EuroSport 1" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_1_logo_v2.png")
+            elif "EuroSport 2" in titulo:
+                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_2_logo_v2.png")
+            else:
+                thumb = None  # Logo por defecto si no coincide
+
+            if thumb:
+                list_item.setArt({'thumb': thumb})
+
+            # ===== Info y propiedades del ListItem =====
+            list_item.setInfo('video', info)
+            list_item.setProperty('IsPlayable', 'false')  
+            is_folder = False
+
+            listing.append((url, list_item, is_folder))
+
+    # ===== Añadir todos los items y terminar directorio =====
     xbmcplugin.addDirectoryItems(addon_handle, listing, len(listing))
     xbmcplugin.endOfDirectory(addon_handle)
-
+                     
     input_file.close()
 
 ### click canal

@@ -244,6 +244,12 @@ def links_manuales_setting():
 
                 for hit in hits:
                     source = hit.get("_source", {})
+
+                    log_enabled = getsetting("canales_on").strip().lower()  # elimina espacios y pasa a minúscula
+                    debug(f"JM setting {log_enabled}")
+                    if log_enabled == "true" and not source.get("running", True):  #### al reves????????????????
+                        continue  # saltar los que no estén en running
+                    
                     debug(f"JM guardando {source}")
 
                     json.dump(source, file_ids, ensure_ascii=False)

@@ -1,6 +1,6 @@
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon, xbmcvfs
 import subprocess
-import requests
+import urllib.request
 import sys
 import time
 import os
@@ -205,13 +205,17 @@ def canal(url,nombre):
         notificacion("Cancelado o tiempo agotado")
         es_url = f"http://manilovic.ddns.net:9200/acestreams/_update/{url}"
         payload = {"doc": {"running": False}}
-        response = requests.post(es_url, json=payload)
-        debug(str(response.text))
+
+        request = urllib.request.Request(es_url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
+
+        with urllib.request.urlopen(request, timeout=10) as response:
+            response_text = response.read().decode("utf-8")
+            debug(str(response_text))
+            data = json.loads(response_text)
+            result = data.get("result")
+            notificacion(f"Elastic result: {result}")
+            sys.exit(0)
         
-        data = response.json()              # convertir respuesta a dict
-        result = data.get("result")         # obtener campo "result"
-        notificacion(f"Elastic result: {result}")
-        sys.exit(0)
     #### box
 
     
@@ -229,13 +233,16 @@ def canal(url,nombre):
 
     es_url = f"http://manilovic.ddns.net:9200/acestreams/_update/{url}"
     payload = {"doc": {"running": True}}
-    response = requests.post(es_url, json=payload)
-    debug(str(response.text))
-        
-    data = response.json()              # convertir respuesta a dict
-    result = data.get("result")         # obtener campo "result"
-    notificacion(f"Elastic result: {result}")
-    sys.exit(0)
+
+    request = urllib.request.Request(es_url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
+
+    with urllib.request.urlopen(request, timeout=10) as response:
+        response_text = response.read().decode("utf-8")
+        debug(str(response_text))
+        data = json.loads(response_text)
+        result = data.get("result")
+        notificacion(f"Elastic result: {result}")
+        sys.exit(0)
 
     parar_acestream()  #### PARAR
 

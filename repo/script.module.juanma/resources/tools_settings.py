@@ -223,13 +223,17 @@ def links_manuales_setting():
 
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
 
-    with open(ruta_ids, mode="w", encoding="utf-8") as file_ids:
+    with open(ruta_ids, mode="w", encoding="utf-8") as file_ids:     
 
         for canal in canales:
             debug(f"JM buscando {canal}")
 
-            url = "http://manilovic.ddns.net:9200/acestreams/_search"
-            payload = {"size": 1000,"query": {"match_phrase": {"name": canal }}}
+            if canal == "Extranjeras":
+                url = "http://manilovic.ddns.net:9200/acestreams/_search"
+                payload = {"size": 9000,"query": {"bool": {"must": [{"term": {"valido": True}}]}}}
+            else:        
+                url = "http://manilovic.ddns.net:9200/acestreams/_search"
+                payload = {"size": 1000,"query": {"match_phrase": {"name": canal }}}
 
             req = urllib.request.Request(url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
 

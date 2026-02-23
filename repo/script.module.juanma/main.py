@@ -201,7 +201,7 @@ else:
     ### Android API
 
     if sistema() == "android":  
-        debug("JM  sistema android canal")
+        debug("JM  sistema Android canal")
         notificacion("Sistema Android")
         AndroidActivity = 'StartAndroidActivity("","org.acestream.action.start_content","","acestream:?content_id=%s")' % url  ## %s por url
         debug("JM  Abriendo Android")
@@ -210,6 +210,8 @@ else:
     ### Linux
     
     else:
+        notificacion("JM  Sistema es " + sistema())
+        debug("JM  Sistema es " + sistema())
         debug("JM Inicio Canal " + nombre + ": "+ url)
         canal(url,nombre)
         debug ("JM Final Canal")

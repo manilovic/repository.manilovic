@@ -1,5 +1,6 @@
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon, xbmcvfs
 import subprocess
+import requests
 import sys
 import time
 import os
@@ -29,9 +30,9 @@ def lista_elementos():
     Deportes = getsetting("Deportes")
     NBA = getsetting("NBA_TV")
     Sky = getsetting("Sky")
-    UFC = getsetting("UFC")
+    BEIN = getsetting("BEIN")
     Golf = getsetting("Golf")
-    #Extranjeras = getsetting("Extranjeras")
+    Extranjeras = getsetting("Extranjeras")
 
                 
     canales = []
@@ -50,16 +51,12 @@ def lista_elementos():
         canales += ["NBA"]          
     if Sky == "true":
         canales += ["Sky"]
-    if UFC == "true":
-        canales += ["UFC"]
+    if BEIN == "true":
+        canales += ["BEIN"]
     if Golf == "true":
-        canales += ["Golf"]
-        
-    #if Extranjeras == "true":
-    #    patron = r"\([A-Za-z]{3}\)"
-    #    for canal in canales:
-    #      if re.search(patron, canal):
-    #          canales += [canal]
+        canales += ["Golf"]  
+    if Extranjeras == "true":
+        canales += ["Extranjeras"]
 
     debug("JM" + str(canales))
     return(canales)
@@ -206,6 +203,14 @@ def canal(url,nombre):
 
     if d.iscanceled() or time.time() >= timedown:
         notificacion("Cancelado o tiempo agotado")
+        es_url = f"http://manilovic.ddns.net:9200/acestreams/_update/{url}"
+        payload = {"doc": {"running": False}}
+        response = requests.post(es_url, json=payload)
+        debug(str(response.text))
+        
+        data = response.json()              # convertir respuesta a dict
+        result = data.get("result")         # obtener campo "result"
+        notificacion(f"Elastic result: {result}")
         sys.exit(0)
     #### box
 
@@ -222,6 +227,15 @@ def canal(url,nombre):
         monitor.waitForAbort(1)
     xbmc.Player().stop()
 
+    es_url = f"http://manilovic.ddns.net:9200/acestreams/_update/{url}"
+    payload = {"doc": {"running": True}}
+    response = requests.post(es_url, json=payload)
+    debug(str(response.text))
+        
+    data = response.json()              # convertir respuesta a dict
+    result = data.get("result")         # obtener campo "result"
+    notificacion(f"Elastic result: {result}")
+    sys.exit(0)
 
     parar_acestream()  #### PARAR
 

@@ -11,9 +11,6 @@
 		<setting label="Actualizar Lista Completa de canales almacenados" type="action"  action="RunPlugin(plugin://script.module.juanma?todos_links_setting)" option="close"/>
 		<setting label="Actualizar Lista Completa de canales incorrectos almacenados" type="action" action="RunPlugin(plugin://script.module.juanma?todos_malos_setting)" option="close"/>				
 	</category>
-	<category label="Actualizar 'Shikcat.me'">
-		<setting label="Actualizar Lista de canales" type="action"  action="RunPlugin(plugin://script.module.juanma?actualizar_links_shickat)" option="close"/>
-	</category>
 	<category label="Selector Canales Manual">
 		<setting id="Dazn_Mov_Liga" type="bool" label="Liga (Dazn y Movistar)" default="true"/>
 		<setting id="Liga_campeones" type="bool" label="Liga de Campeones" default="false" />
@@ -22,7 +19,8 @@
 		<setting id="Deportes" type="bool" label="Movistar Deportes" default="false" />
 		<setting id="NBA_TV" type="bool" label="NBA" default="false" />
 		<setting id="Sky" type="bool" label="Sky" default="false" />
-		<setting id="UFC" type="bool" label="UFC" default="false" />
+		<setting id="BEIN" type="bool" label="BEIN" default="false" />
+		<setting id="Extranjeras" type="bool" label="Extranjeras" default="false" />
 		<setting type="sep"/>
 		<setting label="Selecciona canales y pulsa aqui para Actualizar lista" type="action"  action="RunPlugin(plugin://script.module.juanma?links_manuales_setting)" option="close"/>
 	</category>

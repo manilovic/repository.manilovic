@@ -247,8 +247,13 @@ def links_manuales_setting():
 
                     log_enabled = getsetting("canales_on").strip().lower()  # elimina espacios y pasa a minúscula
                     debug(f"JM setting {log_enabled}")
-                    if log_enabled == "true" and not source.get("running", True):  #### al reves????????????????
-                        continue  # saltar los que no estén en running
+
+                    if log_enabled == "true":
+                        if source.get("running") is False:
+                            continue
+
+                    #if log_enabled == "true" and not source.get("running", True):  #### al reves????????????????
+                    #    continue  # saltar los que no estén en running
                     
                     debug(f"JM guardando {source}")
 
@@ -258,95 +263,3 @@ def links_manuales_setting():
     file_ids.close()
     notificacion("Links actualizados")
     debug("JM  Links actualizados")
-
-
-def sobreescribir_favoritos_setting():
-
-    ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
-    ruta_backup = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
-    ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
-    
-    debug ("JM Sobreescribiendo archivo favoritos")
-    notificacion(" Sobreescribiendo archivo favoritos")
-    
-    with open(ruta_favoritos, encoding="utf-8", mode="w") as file:
-        file.write("")  # Crear un archivo vacío
-    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
-    debug ("JM Copiado favoritos de JM")
-    notificacion("Favoritos actualizado")
-    notificacion("Reiniciar Kodi para que surtan efecto los cambios")
-    debug ("JM Favoritos actualizados")
-
-    
-def actualizar_favoritos_setting():
-
-    ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
-    ruta_backup = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
-    ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
-    ruta_test = xbmcvfs.translatePath("special://home/userdata/favourites.xml.test")
-    
-    if xbmcvfs.exists(ruta_favoritos):                              # Verifica si existe la ruta de origen
-        debug ("JM Se encontró archivo Favoritos")
-        shutil.copyfile(ruta_favoritos, ruta_backup)                # Copiar y sobrescribir el archivo origen al archivo backup
-        with xbmcvfs.File(ruta_backup, 'r') as file_origen:
-            lines = file_origen.read().splitlines()                
-        with xbmcvfs.File(ruta_test, 'w') as file_destino:
-            for line in lines[:-1]:                                 # Slice to skip the last line
-                file_destino.write(line + "\n")
-        with xbmcvfs.File(ruta_test, 'r') as file_test:
-            existing_lines = file_test.read().splitlines()
-
-        
-        with xbmcvfs.File(ruta_favoritos_JM, 'r') as file_test:
-            lines = file_test.read().splitlines()
-        with xbmcvfs.File(ruta_test, 'w') as file_destino:
-            for line in lines[1:]:                                  # Slice to skip the first line
-                file_destino.write(line + "\n")
-        with xbmcvfs.File(ruta_test, 'r') as file_origen:
-            lines_to_append = file_origen.read().splitlines()
-
-        combined_lines = existing_lines + lines_to_append
-        with xbmcvfs.File(ruta_favoritos, 'w') as file_destino:
-            for line in combined_lines:
-                file_destino.write(line + "\n")
-
-    notificacion("Favoritos actualizado")
-    notificacion("Reiniciar Kodi para que surtan efecto los cambios")
-    debug ("JM Favoritos actualizados")
-
-
-def actualizar_links_shickat():
-
-    notificacion("Buscando shickcat links....")
-    debug ("JM Buscando shickat links....")
-    
-    
-    ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    file_ids = open(ruta_ids, encoding="utf-8", mode='w')
-
-    url = f"https://shickat.me/"
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
-
-    request = urllib.request.Request(url, headers=headers)     # Crear la solicitud con los encabezados
-    response = urllib.request.urlopen(request)
-    html = response.read().decode('utf-8')
-
-    #Regex para extraer nombre y href
-    resultados = re.findall(r'<article class="canal-card".*?data-titulo=".*?">.*?<span class="canal-nombre">(.*?)</span>.*?<a class="acestream-link" href="(acestream://.*?)"', html, re.DOTALL)
-    
-    canales_ordenados = sorted(resultados, key=lambda x: x[0])
-
-    for nombre, link in canales_ordenados:
-        canales_dict = {"name": nombre.strip(), "link": link.replace("acestream://", "").strip()}
-        debug(f"JM {canales_dict}")
-        json_data = json.dumps(canales_dict)                                           # Convertir el diccionario a formato JSON
-        file_ids.write(json_data + "\n")
-
-    
-    file_ids.close()
-
-    notificacion("Links actualizados")
-    debug ("JM  Links actualizados")
-
-
-

@@ -6,6 +6,9 @@ import time
 import os
 import platform
 import re
+import json
+import hashlib
+
 
 def debug(message):
 
@@ -29,12 +32,13 @@ def lista_elementos():
     DAZN = getsetting("DAZN")
     Deportes = getsetting("Deportes")
     NBA = getsetting("NBA_TV")
-    Sky = getsetting("Sky")
+    NFL = getsetting("NFL")
     BEIN = getsetting("BEIN")
+    ESPN = getsetting("ESPN")
+    Sky = getsetting("Sky")
     Golf = getsetting("Golf")
     Extranjeras = getsetting("Extranjeras")
 
-                
     canales = []
 
     if Dazn_Mov_Liga == "true":
@@ -48,11 +52,15 @@ def lista_elementos():
     if Deportes == "true":
         canales += ["Deportes"]
     if NBA == "true":
-        canales += ["NBA"]          
+        canales += ["NBA"]   
+    if NFL == "true":
+        canales += ["NFL"]
+    if BEIN == "true":
+        canales += ["BEIN", "Bein"]
+    if ESPN == "true":
+        canales += ["ESPN"]
     if Sky == "true":
         canales += ["Sky"]
-    if BEIN == "true":
-        canales += ["BEIN"]
     if Golf == "true":
         canales += ["Golf"]  
     if Extranjeras == "true":
@@ -246,4 +254,38 @@ def canal(url,nombre):
 
     parar_acestream()  #### PARAR
 
-    return(debug("JM  Canal cerrado")) 
+    return(debug("JM  Canal cerrado"))
+
+# ==========================================================
+# HASH CONFIGURACIÓN
+# ==========================================================
+
+def calcular_hash_canales():
+
+    canales_settings = [
+        "Dazn_Mov_Liga",
+        "Liga_campeones",
+        "F1",
+        "DAZN",
+        "Deportes",
+        "NBA_TV",
+        "NFL",
+        "BEIN",
+        "ESPN",
+        "Sky",
+        "Golf",
+        "Extranjeras"
+    ]
+
+    config = {}
+
+    for c in canales_settings:
+        config[c] = getsetting(c)
+
+    config["canales_on"] = getsetting("canales_on")
+
+    config_json = json.dumps(config, sort_keys=True)
+
+    return hashlib.md5(config_json.encode()).hexdigest()
+
+

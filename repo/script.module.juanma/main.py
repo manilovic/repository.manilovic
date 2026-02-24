@@ -1,56 +1,49 @@
+# -*- coding: utf-8 -*-
+
 from resources.tools import *
 from resources.tools_settings import *
 
-import xbmc, xbmcgui, xbmcplugin, xbmcaddon, xbmcvfs
+import xbmc
+import xbmcgui
+import xbmcplugin
+import xbmcaddon
+import xbmcvfs
 import sys
-import time
 import os
-import subprocess
 import json
+import time
+import shutil
 import urllib.request
 import urllib.parse
-from urllib.parse import urlparse
-from urllib.parse import parse_qs
-from urllib.parse import urlencode
-import shutil
+from urllib.parse import parse_qsl
+
+
+def comprobar_actualizacion():
+
+    addon = xbmcaddon.Addon()
+
+    hash_actual = calcular_hash_canales()
+    hash_guardado = addon.getSetting("config_hash")
+
+    debug("JM hash actual: " + str(hash_actual))
+    debug("JM hash guardado: " + str(hash_guardado))
+
+    if hash_actual != hash_guardado:
+        debug("JM configuración cambiada → actualizando lista")
+        links_manuales_setting()
+        addon.setSetting("config_hash", hash_actual)
+    else:
+        debug("JM configuración sin cambios")
 
 
 ####### MAIN #########
 
+debug("JM ADDON INICIO")
 
 
-# Debug
-debug ("JM ADDON INICIO")
+# Indentificar Sistema
+debug("JM  Sistema es " + sistema())
 
-# Favoritos
-
-ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
-ruta_backup = xbmcvfs.translatePath("special://home/userdata/favourites.xml.backup")
-ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
-
-
-debug("JM favoritos: " + ruta_favoritos)
-
-with open(ruta_favoritos, 'w') as file:
-    file.write("")  # Crear un archivo vacío
-shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
-debug ("JM Copiado favoritos de JM")
-
-#############################
-#if xbmcvfs.exists(ruta_favoritos):                            # Verifica si existe la ruta de origen
-#    debug("JM Se encontró el archivo favoritos")
-
-#else:
-#    debug ("JM No se encontró el archivo favoritos")
-#    with open(ruta_favoritos, 'w') as file:
-#        file.write("")  # Crear un archivo vacío
-#    shutil.copyfile(ruta_favoritos_JM, ruta_favoritos) # Copiar y sobrescribir el archivo origen al archivo destino
-#    debug ("JM Copiado favoritos de JM")
-############################# 
-  
-
-
-#Settings buttons de AJUSTES
 
 debug("JM  sys.argv 0 >> " + str(sys.argv[0]))
 debug("JM  sys.argv 1 >> " + str(sys.argv[1]))
@@ -58,64 +51,71 @@ debug("JM  sys.argv 2 >> " + str(sys.argv[2]))
 debug("JM  sys.argv 3 >> " + str(sys.argv[3]))
 
 
+base_url = sys.argv[0]
+addon_handle = int(sys.argv[1])
+params = dict(parse_qsl(sys.argv[2][1:]))
+
+# ==========================================================
+# ACCIONES DESDE SETTINGS
+# ==========================================================
+
 if str(sys.argv[2]) == '?parar_acestream_2':
     parar_setting_acestream()
 
-if str(sys.argv[2]) == '?limpiar_cache_setting':
+elif str(sys.argv[2]) == '?limpiar_cache_setting':
     limpiar_cache_setting()
-    
-if str(sys.argv[2]) == '?actualizar_links_acesearch':
-    actualizar_links_acesearch()
-    
-if str(sys.argv[2]) == '?todos_links_setting':
+
+elif str(sys.argv[2]) == '?todos_links_setting':
     todos_links_setting()
 
-if str(sys.argv[2]) == '?todos_malos_setting':
+elif str(sys.argv[2]) == '?todos_malos_setting':
     todos_malos_setting()
 
-if str(sys.argv[2]) == '?actualizar_favoritos_setting':
-    actualizar_favoritos_setting()
-       
-if str(sys.argv[2]) == '?sobreescribir_favoritos_setting':
-    sobreescribir_favoritos_setting()
+elif str(sys.argv[2]) == '?actualizar_links_acesearch':
+    actualizar_links_acesearch()
 
-if str(sys.argv[2]) == '?links_manuales_setting':
+elif str(sys.argv[2]) == '?links_manuales_setting':
     links_manuales_setting()
 
-if str(sys.argv[2]) == '?actualizar_links_shickat':
-    actualizar_links_shickat()
-    
-    
-    
-    
+# ==========================================================
+# ENTRADA NORMAL AL ADDON (SIN ACCIÓN)
+# ==========================================================
+
+if not sys.argv[2]:
+
+    # Comprobar cambios en configuración
+    comprobar_actualizacion()
+
+    # --- Favoritos (solo en entrada normal) ---
+    ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
+    ruta_favoritos_JM = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
+
+    try:
+        shutil.copyfile(ruta_favoritos_JM, ruta_favoritos)
+        debug("JM Copiado favoritos de JM")
+    except Exception as e:
+        debug("JM Error copiando favoritos: " + str(e))
 
 
-
-# Indentificar Sistema
-
-debug("JM  Sistema es " + sistema())
-
-
-#########
+# ==========================================================
+# CONSTRUCCIÓN MENÚ
+# ==========================================================
 
 def build_url(query):
+    return base_url + '?' + urllib.parse.urlencode(query)
 
-    return base_url + '?' + urllib.parse.urlencode(query)   #  {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"}
-                                                            #  jm = urllib.parse.urlencode(y) # name=Laliga+multiaudio&link=167e3b44a520cd76d4372f6d30fe6d7ccd524175
 
-####### MENUS CANALES ########
-
-base_url = sys.argv[0]
-addon_handle = int(sys.argv[1])
 args = urllib.parse.parse_qs(sys.argv[2][1:])
 
-
 ### click name
-name = args.get('name', None)
+
+name = args.get('name', None) 
 
 
-### MENU canales
 
+# ==========================================================
+# LISTADO PRINCIPAL ### menu canales
+# ==========================================================
 
 if name is None:
 
@@ -123,14 +123,23 @@ if name is None:
     listing = []
 
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    
+
+    if not os.path.exists(ruta_ids):
+        debug("JM ids.json no existe")
+        xbmcplugin.endOfDirectory(addon_handle)
+        sys.exit()
+
     with open(ruta_ids, encoding="utf-8", mode='r') as input_file:
 
         for line in input_file:
+
             y = json.loads(line)  # {"name":"DAZN LaLiga MultiAudio", "link":"df98650743f24a245c44cdf2851e57078f4c487a"}
 
-            url = build_url(y)            
+            url = build_url(y)
             titulo = y["name"]
+
+            # Color por running
+            estado = y.get("running")
 
             # ===== Colores según running =====
             estado = y.get("running")
@@ -144,62 +153,28 @@ if name is None:
             info = list_item.getVideoInfoTag()
             info.setTitle(titulo)
 
-            # ===== Logos según nombre =====
-            if "DAZN F1" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/F1_logo_v2.png")
-            elif "Bar" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/LaligaTvBar.png")
-            elif "DAZN LaLiga" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_liga_logo_v2.png")
-            elif "M. LaLiga" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Mov_liga_logo_v2.png")
-            elif "Campeones" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Campeones_logo_v2.png")
-            elif "Deportes" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Deportes_logo_v2.png")
-            elif "DAZN 1" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Motogp_logo_v2.png")
-            elif "DAZN 2" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_2_logo_v2.png")
-            elif "DAZN 3" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Dazn_3_logo_v2.png")
-            elif "M. Golf" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Golf_logo_v2.png")
-            elif "EuroSport 1" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_1_logo_v2.png")
-            elif "EuroSport 2" in titulo:
-                thumb = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/logos/Eurosport_2_logo_v2.png")
-            else:
-                thumb = None  # Logo por defecto si no coincide
-
-            if thumb:
-                list_item.setArt({'thumb': thumb})
-
-            # ===== Info y propiedades del ListItem =====
             list_item.setInfo('video', info)
-            list_item.setProperty('IsPlayable', 'false')  
-            is_folder = False
+            list_item.setProperty('IsPlayable', 'false')
 
-            listing.append((url, list_item, is_folder))
+            listing.append((url, list_item, False))
 
-    # ===== Añadir todos los items y terminar directorio =====
+    # ===== Añadir todos los items y terminar directorio =====  
     xbmcplugin.addDirectoryItems(addon_handle, listing, len(listing))
     xbmcplugin.endOfDirectory(addon_handle)
-                     
-    input_file.close()
 
-### click canal
+
+# ==========================================================
+# CLICK EN CANAL
+# ==========================================================
 
 else:
 
     nombre = name[0]
     notificacion(nombre)
- 
+
     link = args.get('link', None)
     url = link[0]
-
-    ### Android API
-
+    
     if sistema() == "android":  
         debug("JM  sistema Android canal")
         notificacion("Sistema Android")
@@ -215,10 +190,5 @@ else:
         debug("JM Inicio Canal " + nombre + ": "+ url)
         canal(url,nombre)
         debug ("JM Final Canal")
-    
-    ###
 
-#notificacion("Final")
-debug ("JM ADDON FINAL")                                                                            
-
-                                                
+debug("JM ADDON FINAL")

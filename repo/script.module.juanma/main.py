@@ -77,6 +77,11 @@ elif str(sys.argv[2]) == '?actualizar_links_acesearch':
 elif str(sys.argv[2]) == '?links_manuales_setting':
     links_manuales_setting()
 
+elif str(sys.argv[2]) == '?actualizar_links_elastic':
+    actualizar_links_elastic()
+
+
+
 # ==========================================================
 # ENTRADA NORMAL AL ADDON (SIN ACCIÓN)
 # ==========================================================

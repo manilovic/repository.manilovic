@@ -167,47 +167,43 @@ def todos_malos_setting():
     debug ("JM  Links actualizados")
 
 
-def actualizar_links_acesearch():
+def actualizar_links_elastic():
 
-    notificacion("Buscando acestreamsearch links....")
-    debug ("JM Buscando acestreamsearch links....")
+    notificacion("Buscando elastic links....")
+    debug ("JM Buscando elastic links....")
     
-    
-    teclado = xbmcgui.Dialog()
-    palabra = teclado.input("¿Qué canal quieres buscar en acestream search?", type=xbmcgui.INPUT_ALPHANUM)
-      
-    if not palabra:
-       palabra = "sports"  # Valor por defecto
-
-    
-    #palabra= palabra_buscador()
+    palabra= palabra_buscador()
     debug (f"JM Buscando {palabra}")
     notificacion (f'JM Buscando "{palabra}"....')
 
-  
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     file_ids = open(ruta_ids, encoding="utf-8", mode='w')
 
+    url = "http://manilovic.ddns.net:9200/acestreams/_search"
+    payload = {"size": 1000,"query": {"match_phrase": {"name": palabra }}}
 
-    url = f"http://192.168.1.48:5000/buscar?q={palabra}"
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
+    req = urllib.request.Request(url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
 
-    request = urllib.request.Request(url, headers=headers)     # Crear la solicitud con los encabezados
-    response = urllib.request.urlopen(request)
-    html = response.read().decode('utf-8')
-    
-    debug (f"JM canales {html}")
-    
-    data = json.loads(html)  # Decodificar el JSON
-    debug (f"JM loads {data}")
-    
-    for item in data:
-       debug (f"JM canales {item}")
-       
-       # Convertir el diccionario en un string JSON y escribirlo en el archivo
-       json_data = json.dumps(item, ensure_ascii=False)
-       file_ids.write(json_data + "\n")     
+    with urllib.request.urlopen(req) as response:
+        result_json = json.loads(response.read().decode("utf-8"))
 
+        hits = result_json.get("hits", {}).get("hits", [])
+
+        for hit in hits:
+            source = hit.get("_source", {})
+
+            log_enabled = getsetting("canales_on").strip().lower()  # elimina espacios y pasa a minúscula
+            debug(f"JM setting {log_enabled}")
+
+            if log_enabled == "true":
+                if source.get("running") is False:
+                    continue
+
+                    
+            debug(f"JM guardando {source}")
+            json.dump(source, file_ids, ensure_ascii=False)
+            file_ids.write("\n")
+         
     file_ids.close()
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")

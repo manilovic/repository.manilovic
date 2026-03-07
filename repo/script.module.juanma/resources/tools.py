@@ -15,11 +15,26 @@ def debug(message):
     log_enabled = getsetting("debug")
     if log_enabled == "true":
         xbmc.log(message, xbmc.LOGINFO)
-        
+
+def notificacion(line1):
+
+    __addon__ = xbmcaddon.Addon()
+    __addonname__ = __addon__.getAddonInfo('name')
+    __icon__ = __addon__.getAddonInfo('icon')
+    #line1 = "No Server"
+    timeml = 5000 #in miliseconds
+    xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__,line1, timeml, __icon__))
+
+def getsetting(settingname):
+
+    setting = xbmcaddon.Addon().getSetting(settingname)
+    return setting
+
+
 def palabra_buscador():
 
     palabra_busqueda = getsetting("palabra_busqueda")
-    debug("JM tools" + palabra_busqueda)
+    debug("JM tools.py " + palabra_busqueda)
     
     return(palabra_busqueda)
 
@@ -31,11 +46,6 @@ def lista_elementos():
     F1 = getsetting("F1")
     DAZN = getsetting("DAZN")
     Deportes = getsetting("Deportes")
-    NBA = getsetting("NBA_TV")
-    NFL = getsetting("NFL")
-    BEIN = getsetting("BEIN")
-    ESPN = getsetting("ESPN")
-    Sky = getsetting("Sky")
     Golf = getsetting("Golf")
     Extranjeras = getsetting("Extranjeras")
 
@@ -51,16 +61,6 @@ def lista_elementos():
         canales += ["DAZN"]          
     if Deportes == "true":
         canales += ["Deportes"]
-    if NBA == "true":
-        canales += ["NBA"]   
-    if NFL == "true":
-        canales += ["NFL"]
-    if BEIN == "true":
-        canales += ["BEIN", "Bein"]
-    if ESPN == "true":
-        canales += ["ESPN"]
-    if Sky == "true":
-        canales += ["Sky"]
     if Golf == "true":
         canales += ["Golf"]  
     if Extranjeras == "true":
@@ -78,7 +78,6 @@ def importar(addon_id):
     debug(str(sys.path))                       #Ahora podemos importar acestream de horus:
 
 def sistema():
-
     
     if "ANDROID_STORAGE" in os.environ:
         SO = "android"
@@ -92,23 +91,6 @@ def sistema():
         
     return(SO)
 
-
-def getsetting(settingname):
-
-    setting = xbmcaddon.Addon().getSetting(settingname)
-    return setting
-
-
-def notificacion(line1):
-
-    __addon__ = xbmcaddon.Addon()
-    __addonname__ = __addon__.getAddonInfo('name')
-    __icon__ = __addon__.getAddonInfo('icon')
-    #line1 = "No Server"
-    timeml = 5000 #in miliseconds
-    xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(__addonname__,line1, timeml, __icon__))
-    
-    
    
 def arrancar_acestream():
     

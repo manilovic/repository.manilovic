@@ -10,6 +10,8 @@ import json
 import hashlib
 
 
+
+
 def debug(message):
 
     log_enabled = getsetting("debug")
@@ -78,18 +80,27 @@ def importar(addon_id):
     debug(str(sys.path))                       #Ahora podemos importar acestream de horus:
 
 def sistema():
-    
+
+    SO = "unknown"
+
     if "ANDROID_STORAGE" in os.environ:
         SO = "android"
 
-    elif "Linux" in platform.system():
-        x = "Linux"
+    elif platform.system() == "Linux":
+
         if "Ubuntu" in platform.version():
             SO = "Ubuntu"
-        elif "arm" in os.uname()[4]:    # if "linux" and "arm"  >> 'osmc','openelec','raspbian','raspios'
+
+        elif "arm" in platform.machine().lower():
             SO = "arm"
-        
-    return(SO)
+
+        else:
+            SO = "linux"
+
+    elif platform.system() == "Windows":
+        SO = "windows"
+
+    return SO
 
    
 def arrancar_acestream():

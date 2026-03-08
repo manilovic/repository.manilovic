@@ -9,24 +9,4 @@
 		<setting id="stop_acestream_2" label="Parada Forzosa Acestream AHORA" type="action"  action="RunPlugin(plugin://script.module.juanma?parar_acestream_2)"  visible="!System.Platform.Android" option="close"/>
 		<setting label="Horus install acestream" type="action"  action="RunPlugin(plugin://script.module.horus?action=install_acestream)" visible="!System.Platform.Android" option="close"/>
 	</category>
-	<category label="Actualizar Canales">
-		<setting label="Actualizar Lista Completa de canales almacenados" type="action"  action="RunPlugin(plugin://script.module.juanma?todos_links_setting)" option="close"/>
-		<setting label="Actualizar Lista Completa de canales incorrectos almacenados" type="action" action="RunPlugin(plugin://script.module.juanma?todos_malos_setting)" option="close"/>				
-	</category>
-	<category label="Selector Canales Manual">
-		<setting id="Dazn_Mov_Liga" type="bool" label="Liga (Dazn y Movistar)" default="true"/>
-		<setting id="Liga_campeones" type="bool" label="Liga de Campeones" default="false" />
-		<setting id="F1" type="bool" label="F1" default="false" />
-		<setting id="DAZN" type="bool" label="DAZN" default="false" />
-		<setting id="Deportes" type="bool" label="Movistar Deportes" default="false" />
-		<setting id="Golf" type="bool" label="Golf" default="false" />
-		<setting id="Extranjeras" type="bool" label="Extranjeras" default="false" />
-		<setting type="sep"/>
-		<setting label="Selecciona canales y pulsa aqui para Actualizar lista" type="action"  action="RunPlugin(plugin://script.module.juanma?links_manuales_setting)" option="close"/>
-	</category>
-	<category label="Buscador">
-		<setting id="palabra_busqueda" type="text" label="Palabra a buscar" default="Laliga" description="Escribe el canal o palabra que quieres buscar"/>
-		<setting type="sep"/>
-		<setting type="action"  label="Actualizar links"  action="RunPlugin(plugin://script.module.juanma?actualizar_links_elastic)"/>
-	</category>
 </settings>

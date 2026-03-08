@@ -99,88 +99,25 @@ def limpiar_cache_setting():
     return(debug("JM  Caché limpiado"))
 
 
-def todos_links_setting():
-
-    notificacion("Actualizando lista manual completa links....")
-    debug ("JM  Actualizando lista manual completa links....")
-    
-    result = []
-    
-    ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    idsmanuales = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids/manualesids.json")
-    
-    with open(idsmanuales, encoding="utf-8", mode="r") as file:
-       lines = file.readlines()
-    
-    for line in lines:
-       data = json.loads(line)
-       result.append(data)
-       debug (f"JM canales {data}")
-                
-    
-    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name"
-    
-    
-    with open(ids, encoding="utf-8", mode='w') as file_ids:
-       for item in result:                                                # Imprimir los elementos ordenados
-          json_data = json.dumps(item)# Convertir el diccionario a formato JSON
-          print(json_data)
-          file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
-        
-    
-   
-    notificacion("Links actualizados")
-    debug ("JM  Links actualizados")
-      
-
-
-
-def todos_malos_setting():
-
-    notificacion("Actualizando lista mala....")
-    debug ("JM  Actualizando lista mala....")
-    
-    result = []
-    
-    ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-    idsmanuales = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids/malos_ids.json")
-    
-    with open(idsmanuales, encoding="utf-8", mode="r") as file:
-       lines = file.readlines()
-    
-    for line in lines:
-       data = json.loads(line)
-       result.append(data)
-       debug (f"JM canales {data}")
-                
-    
-    result_sorted = sorted(result, key=lambda x: x['name'])                  # Ordenar la lista resultante por el valor de la clave "name" 
-
-    with open(ids, encoding="utf-8", mode='w') as file_ids:
-       for item in result:                                                # Imprimir los elementos ordenados
-          json_data = json.dumps(item)                                            # Convertir el diccionario a formato JSON
-          file_ids.write(json_data + "\n")                                       # Escribir en el archivo en formato JSON
-        
-    
-   
-    notificacion("Links actualizados")
-    debug ("JM  Links actualizados")
-
-
-def actualizar_links_elastic():
+def actualizar_links_elastic(palabra=None):
 
     notificacion("Buscando elastic links....")
     debug ("JM Buscando elastic links....")
     
-    palabra= palabra_buscador()
+    if palabra is None:
+        palabra = palabra_buscador()
     debug (f"JM Buscando {palabra}")
     notificacion (f'JM Buscando "{palabra}"....')
 
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
     file_ids = open(ruta_ids, encoding="utf-8", mode='w')
 
-    url = "http://manilovic.ddns.net:9200/acestreams/_search"
-    payload = {"size": 1000,"query": {"match_phrase": {"name": palabra }}}
+    if palabra == "ext":
+        url = "http://manilovic.ddns.net:9200/acestreams/_search"
+        payload = {"size": 9000,"query": {"bool": {"must": [{"term": {"foreign": True}}]}}}
+    else:
+        url = "http://manilovic.ddns.net:9200/acestreams/_search"
+        payload = {"size": 1000,"query": {"match_phrase": {"name": palabra }}}
 
     req = urllib.request.Request(url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
 
@@ -208,54 +145,3 @@ def actualizar_links_elastic():
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
 
-
-def links_manuales_setting():
-
-    notificacion("Actualizando lista manual...")
-    debug("JM  Actualizando lista manual...")
-
-    canales = lista_elementos()
-    debug(f"JM canales {canales}")
-
-    ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
-
-    with open(ruta_ids, mode="w", encoding="utf-8") as file_ids:     
-
-        for canal in canales:
-            debug(f"JM buscando {canal}")
-
-            if canal == "Extranjeras":
-                url = "http://manilovic.ddns.net:9200/acestreams/_search"
-                payload = {"size": 9000,"query": {"bool": {"must": [{"term": {"valido": True}}]}}}
-            else:        
-                url = "http://manilovic.ddns.net:9200/acestreams/_search"
-                payload = {"size": 1000,"query": {"match_phrase": {"name": canal }}}
-
-            req = urllib.request.Request(url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
-
-            with urllib.request.urlopen(req) as response:
-                result_json = json.loads(response.read().decode("utf-8"))
-
-                hits = result_json.get("hits", {}).get("hits", [])
-
-                for hit in hits:
-                    source = hit.get("_source", {})
-
-                    log_enabled = getsetting("canales_on").strip().lower()  # elimina espacios y pasa a minúscula
-                    debug(f"JM setting {log_enabled}")
-
-                    if log_enabled == "true":
-                        if source.get("running") is False:
-                            continue
-
-                    #if log_enabled == "true" and not source.get("running", True):  #### al reves????????????????
-                    #    continue  # saltar los que no estén en running
-                    
-                    debug(f"JM guardando {source}")
-
-                    json.dump(source, file_ids, ensure_ascii=False)
-                    file_ids.write("\n")
-
-    file_ids.close()
-    notificacion("Links actualizados")
-    debug("JM  Links actualizados")

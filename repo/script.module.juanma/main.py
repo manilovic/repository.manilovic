@@ -18,22 +18,72 @@ import urllib.parse
 from urllib.parse import parse_qsl
 
 
-def comprobar_actualizacion():
 
-    addon = xbmcaddon.Addon()
 
-    hash_actual = calcular_hash_canales()
-    hash_guardado = addon.getSetting("config_hash")
+def guardar_historial_busqueda(palabra):
 
-    debug("JM hash actual: " + str(hash_actual))
-    debug("JM hash guardado: " + str(hash_guardado))
+    ruta = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/historial_busquedas.json")
 
-    if hash_actual != hash_guardado:
-        debug("JM configuración cambiada → actualizando lista")
-        links_manuales_setting()
-        addon.setSetting("config_hash", hash_actual)
-    else:
-        debug("JM configuración sin cambios")
+    historial = []
+
+    if os.path.exists(ruta):
+        with open(ruta, encoding="utf-8") as f:
+            historial = json.load(f)
+
+    if palabra not in historial:
+        historial.insert(0, palabra)
+
+    historial = historial[:10]
+
+    with open(ruta, "w", encoding="utf-8") as f:
+        json.dump(historial, f, ensure_ascii=False)
+
+
+def buscar():
+
+    keyboard = xbmc.Keyboard('', 'Buscar canal, ext (extranjeras)')
+    keyboard.doModal()
+
+    if not keyboard.isConfirmed():
+        return
+
+    palabra = keyboard.getText()
+
+    if not palabra:
+        return
+
+    guardar_historial_busqueda(palabra)
+
+    actualizar_links_elastic(palabra)
+
+
+def mostrar_historial():
+
+    ruta = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/historial_busquedas.json")
+
+    if not os.path.exists(ruta):
+        xbmcgui.Dialog().notification("JM", "Sin historial")
+        return
+
+    listing = []
+
+    with open(ruta, encoding="utf-8") as f:
+        historial = json.load(f)
+
+    for palabra in historial:
+
+        url = build_url({
+            'action': 'buscar_historial',
+            'palabra': palabra
+        })
+
+        li = xbmcgui.ListItem("🔎 " + palabra)
+        listing.append((url, li, True))
+
+    xbmcplugin.addDirectoryItems(addon_handle, listing, len(listing))
+    xbmcplugin.endOfDirectory(addon_handle)
+
+
 
 
 ####### MAIN #########
@@ -65,31 +115,12 @@ if str(sys.argv[2]) == '?parar_acestream_2':
 elif str(sys.argv[2]) == '?limpiar_cache_setting':
     limpiar_cache_setting()
 
-elif str(sys.argv[2]) == '?todos_links_setting':
-    todos_links_setting()
-
-elif str(sys.argv[2]) == '?todos_malos_setting':
-    todos_malos_setting()
-
-elif str(sys.argv[2]) == '?actualizar_links_acesearch':
-    actualizar_links_acesearch()
-
-elif str(sys.argv[2]) == '?links_manuales_setting':
-    links_manuales_setting()
-
-elif str(sys.argv[2]) == '?actualizar_links_elastic':
-    actualizar_links_elastic()
-
-
 
 # ==========================================================
 # ENTRADA NORMAL AL ADDON (SIN ACCIÓN)
 # ==========================================================
 
 if not sys.argv[2]:
-
-    # Comprobar cambios en configuración
-    comprobar_actualizacion()
 
     # --- Favoritos (solo en entrada normal) ---
     ruta_favoritos = xbmcvfs.translatePath("special://home/userdata/favourites.xml")
@@ -111,11 +142,29 @@ def build_url(query):
 
 
 args = urllib.parse.parse_qs(sys.argv[2][1:])
+action = args.get('action', None)
+
+
+
+
+
 
 ### click name
 
 name = args.get('name', None) 
 
+
+
+if action == ['buscar']:
+    buscar()
+
+elif action == ['historial']:
+    mostrar_historial()
+
+elif action == ['buscar_historial']:
+
+    palabra = args.get("palabra")[0]
+    actualizar_links_elastic(palabra)
 
 
 # ==========================================================
@@ -126,6 +175,16 @@ if name is None:
 
     xbmcplugin.setContent(addon_handle, 'movies')
     listing = []
+
+    # BUSCADOR
+    url = build_url({'action': 'buscar'})
+    li = xbmcgui.ListItem("🔎 Buscar canal")
+    listing.append((url, li, True))
+
+    # HISTORIAL
+    url = build_url({'action': 'historial'})
+    li = xbmcgui.ListItem("🕘 Historial búsquedas")
+    listing.append((url, li, True))
 
     ruta_ids = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/ids.json")
 
@@ -197,3 +256,4 @@ else:
         debug ("JM Final Canal")
 
 debug("JM ADDON FINAL")
+

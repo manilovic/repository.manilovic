@@ -109,11 +109,15 @@ params = dict(parse_qsl(sys.argv[2][1:]))
 # ACCIONES DESDE SETTINGS
 # ==========================================================
 
-if str(sys.argv[2]) == '?parar_acestream_2':
+if str(sys.argv[2]) == '?parar_setting_acestream':
     parar_setting_acestream()
 
 elif str(sys.argv[2]) == '?limpiar_cache_setting':
     limpiar_cache_setting()
+
+
+elif str(sys.argv[2]) == '?sobrescribir_favoritos':
+    sobrescribir_favoritos()
 
 
 # ==========================================================

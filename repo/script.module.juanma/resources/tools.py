@@ -232,7 +232,7 @@ def canal(url,nombre):
         monitor.waitForAbort(1)
     xbmc.Player().stop()
 
-    es_url = f"http://manilovic.ddns.net:9200/acestreams/_update/{url}"
+    es_url = f"http://manilovic.ddns.net:6704/acestreams/_update/{url}"
     payload = {"doc": {"running": True}}
 
     request = urllib.request.Request(es_url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")

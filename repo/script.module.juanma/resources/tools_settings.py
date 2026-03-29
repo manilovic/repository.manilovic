@@ -145,3 +145,23 @@ def actualizar_links_elastic(palabra=None):
     notificacion("Links actualizados")
     debug ("JM  Links actualizados")
 
+
+def sobrescribir_favoritos():
+
+    ruta_addon = xbmcvfs.translatePath("special://home/addons/script.module.juanma/resources/favourites.xml")
+    ruta_usuario = xbmcvfs.translatePath("special://userdata/favourites.xml")
+
+    try:
+        # Verificar que el archivo del addon exista
+        if not xbmcvfs.exists(ruta_addon):
+            print(f"[ERROR] No se encontró el favourites.xml en el addon: {ruta_addon}")
+            return False
+
+        # Copiar y sobrescribir
+        shutil.copyfile(ruta_addon, ruta_usuario)
+        print(f"[INFO] Favoritos sobrescritos correctamente: {ruta_usuario}")
+        return True
+
+    except Exception as e:
+        print(f"[ERROR] Falló al sobrescribir favoritos: {e}")
+        return False

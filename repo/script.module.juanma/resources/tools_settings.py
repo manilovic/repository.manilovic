@@ -113,10 +113,10 @@ def actualizar_links_elastic(palabra=None):
     file_ids = open(ruta_ids, encoding="utf-8", mode='w')
 
     if palabra == "ext":
-        url = "http://manilovic.ddns.net:9200/acestreams/_search"
+        url = "http://manilovic.ddns.net:6704/acestreams/_search"
         payload = {"size": 9000,"query": {"bool": {"must": [{"term": {"foreign": True}}]}}}
     else:
-        url = "http://manilovic.ddns.net:9200/acestreams/_search"
+        url = "http://manilovic.ddns.net:6704/acestreams/_search"
         payload = {"size": 1000,"query": {"match_phrase": {"name": palabra }}}
 
     req = urllib.request.Request(url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")

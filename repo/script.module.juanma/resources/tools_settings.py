@@ -154,12 +154,14 @@ def sobrescribir_favoritos():
     try:
         # Verificar que el archivo del addon exista
         if not xbmcvfs.exists(ruta_addon):
-            print(f"[ERROR] No se encontró el favourites.xml en el addon: {ruta_addon}")
+            debug(f"[ERROR] No se encontró el favourites.xml en el addon: {ruta_addon}")
+            notificacion("Error")
             return False
 
         # Copiar y sobrescribir
         shutil.copyfile(ruta_addon, ruta_usuario)
-        print(f"[INFO] Favoritos sobrescritos correctamente: {ruta_usuario}")
+        debug(f"JM [INFO] Favoritos sobrescritos correctamente: {ruta_usuario}")
+        notificacion("Reinicie Kodi para ver los nuevos Favoritos")
         return True
 
     except Exception as e:

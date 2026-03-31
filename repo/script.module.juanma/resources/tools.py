@@ -204,7 +204,7 @@ def canal(url,nombre):
 
     if d.iscanceled() or time.time() >= timedown:
         notificacion("Cancelado o tiempo agotado")
-        es_url = f"http://manilovic.ddns.net:9200/acestreams/_update/{url}"
+        es_url = f"http://manilovic.ddns.net:6704/acestreams/_update/{url}"
         payload = {"doc": {"running": False}}
 
         request = urllib.request.Request(es_url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")

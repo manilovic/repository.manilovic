@@ -4,6 +4,7 @@
 		<setting id="config_hash" type="string" default="" visible="false"/>
 		<setting id="debug" type="bool" label="Habilitar Mensajes Debug" default="true"/>
 		<setting id="canales_on" type="bool" label="Solo canales validos" default="true"/>
+		<setting id="update_DB" type="bool" label="Actualizar Base de Datos" default="false"/>		
 		<setting id="sobrescribir_favoritos" label="Sobrescribir Favoritos" type="action"  action="RunPlugin(plugin://script.module.juanma?sobrescribir_favoritos)" option="close"/>
 		<setting id="clear_cache_acestream" label="Limpiar caché Acestream" type="action"  action="RunPlugin(plugin://script.module.juanma?limpiar_cache_setting)" visible="!System.Platform.Android" option="close"/>
 		<setting id="parar_setting_acestream" label="Parada Forzosa Acestream AHORA" type="action"  action="RunPlugin(plugin://script.module.juanma?parar_setting_acestream)"  visible="!System.Platform.Android" option="close"/>

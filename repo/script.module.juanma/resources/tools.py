@@ -33,43 +33,29 @@ def getsetting(settingname):
     return setting
 
 
+def update_elastic(status,url):    ## "False" o "True"
+
+    update_enabled = getsetting("update_DB")
+    if update_enabled == "true":
+        es_url = f"http://manilovic.ddns.net:6704/acestreams/_update/{url}"
+        payload = {"doc": {"running": status}}
+        request = urllib.request.Request(es_url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
+    
+        with urllib.request.urlopen(request, timeout=10) as response:
+            response_text = response.read().decode("utf-8")
+            debug(str(response_text))
+            data = json.loads(response_text)
+            result = data.get("result")
+            notificacion(f"Elastic result: {result}")
+            sys.exit(0)
+
+
 def palabra_buscador():
 
     palabra_busqueda = getsetting("palabra_busqueda")
     debug("JM tools.py " + palabra_busqueda)
     
     return(palabra_busqueda)
-
-
-def lista_elementos():
-
-    Dazn_Mov_Liga = getsetting("Dazn_Mov_Liga")
-    Liga_campeones = getsetting("Liga_campeones")
-    F1 = getsetting("F1")
-    DAZN = getsetting("DAZN")
-    Deportes = getsetting("Deportes")
-    Golf = getsetting("Golf")
-    Extranjeras = getsetting("Extranjeras")
-
-    canales = []
-
-    if Dazn_Mov_Liga == "true":
-        canales += ["LaLiga", "La Liga"]
-    if Liga_campeones == "true":
-        canales += ["Campeones"]
-    if F1 == "true":
-        canales += ["F1"]
-    if DAZN == "true":
-        canales += ["DAZN"]          
-    if Deportes == "true":
-        canales += ["Deportes"]
-    if Golf == "true":
-        canales += ["Golf"]  
-    if Extranjeras == "true":
-        canales += ["Extranjeras"]
-
-    debug("JM" + str(canales))
-    return(canales)
 
 
 def importar(addon_id):
@@ -204,18 +190,7 @@ def canal(url,nombre):
 
     if d.iscanceled() or time.time() >= timedown:
         notificacion("Cancelado o tiempo agotado")
-        es_url = f"http://manilovic.ddns.net:6704/acestreams/_update/{url}"
-        payload = {"doc": {"running": False}}
-
-        request = urllib.request.Request(es_url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
-
-        with urllib.request.urlopen(request, timeout=10) as response:
-            response_text = response.read().decode("utf-8")
-            debug(str(response_text))
-            data = json.loads(response_text)
-            result = data.get("result")
-            notificacion(f"Elastic result: {result}")
-            sys.exit(0)
+        update_elastic(False,url)
         
     #### box
 
@@ -232,18 +207,7 @@ def canal(url,nombre):
         monitor.waitForAbort(1)
     xbmc.Player().stop()
 
-    es_url = f"http://manilovic.ddns.net:6704/acestreams/_update/{url}"
-    payload = {"doc": {"running": True}}
-
-    request = urllib.request.Request(es_url,data=json.dumps(payload).encode("utf-8"),headers={"Content-Type": "application/json"},method="POST")
-
-    with urllib.request.urlopen(request, timeout=10) as response:
-        response_text = response.read().decode("utf-8")
-        debug(str(response_text))
-        data = json.loads(response_text)
-        result = data.get("result")
-        notificacion(f"Elastic result: {result}")
-        sys.exit(0)
+    update_elastic(True,url)
 
     parar_acestream()  #### PARAR
 
